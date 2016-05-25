@@ -1,0 +1,22 @@
+set autoindent
+set smooth
+set tabsize 4
+set regexp
+set matchbrackets "(<[{)>]}"
+
+## C/C++
+include "/usr/local/share/nano/c.nanorc"
+## HTML
+include "/usr/local/share/nano/html.nanorc"
+## CSS
+include "/usr/local/share/nano/css.nanorc"
+## TeX
+include "/usr/local/share/nano/tex.nanorc"
+## Perl
+include "/usr/local/share/nano/perl.nanorc"
+## Python
+include "/usr/local/share/nano/python.nanorc"
+## Ruby
+include "/usr/local/share/nano/ruby.nanorc"
+## Java
+ include "/usr/local/share/nano/java.nanorc"
