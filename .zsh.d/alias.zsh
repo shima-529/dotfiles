@@ -1,6 +1,4 @@
 # Zsh aliases & functions
-# alias prof='vim ~/.zshrc'
-# alias aply='source ~/.zshrc'
 alias shell='echo $SHELL'
 alias path='echo $PATH | tr ":" "\n"'
 function path_append(){
@@ -26,8 +24,7 @@ function f(){
 }
 function cdf () {
 	target=$(osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)')
-		if [ "$target" != "" ]
-		then
+		if [ "$target" != "" ]; then
 			cd "$target" || exit
 			pwd
 		else
@@ -46,12 +43,18 @@ alias ls='ls --color=auto -F'
 alias ll='ls --color=auto -lF'
 alias la='ls --color=auto -AF'
 alias a='ls --color=auto -AF'
-alias del='rmtrash'
+function del() {
+	if [ "$1" = "it" ]; then
+		dir="$(pwd)"
+		builtin cd ..
+		shift
+	fi
+	rmtrash $@ $dir
+}
 
 # その他
 alias fuck='eval $(thefuck $(fc -ln -1))'
 alias dock='killall dock'
-# alias hid='~/hidden.sh'
 # zshrc(), vimrc() {{{
 function zshrc(){
 	i=0
@@ -67,9 +70,14 @@ function zshrc(){
 	echo "=============================="
 	printf "> "
 	let i=${i}-1
-	read -r input
+	if [ "$1" = "" ]; then
+		read -r input
+	else
+		echo 
+		input="$1"
+	fi
 	if [ "${input}" -gt "$(expr ${i} + 1)" ]; then
-		echo "Please type a vaild number."
+		echo "Err: invaild number" >&2
 	else
 		if [ "${input}" -eq "0" ]; then
 			vim ~/.zshrc
@@ -91,9 +99,14 @@ function vimrc(){
 	echo "=============================="
 	printf "> "
 	let i=${i}-1
-	read -r input
+	if [ "$1" = "" ]; then
+		read -r input
+	else
+		echo 
+		input="$1"
+	fi
 	if [ "${input}" -gt "$(expr ${i} + 1)" ]; then
-		echo "Please type a vaild number."
+		echo "Err: invaild number" >&2
 	else
 		vim "${files[${input}]}"
 	fi
@@ -105,13 +118,12 @@ function vpn(){
 	elif [ "$1" = "off" ];then
 		scutil --nc stop "$2"
 	else
-		echo "Please fix on/off parameter."
+		echo "Please fix on/off parameter." >&2
 	fi
 }
 alias df='df -h'
 alias du='du --total -h | grep "total"'
 alias whiptail='dialog'
-# alias gf="gfortran"
 alias q='qlmanage -p 1>/dev/null 2>/dev/null'
 alias tree='tree -N'
 alias type='type -a'
@@ -135,5 +147,4 @@ function b(){
 	esac
 }
 # typo対策
-alias rum='run'
 alias ks='ls'
