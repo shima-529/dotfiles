@@ -6,8 +6,10 @@ echo " \__,_|\___/ \__|_| |_|_|\___||___(_)__, |_|\__|"
 echo "                                    |___/"
 echo ""
 echo " dotfiles for Yuki Shimazaki "
-echo " This script will make symlinks to $HOME."
-echo " Are you sure to continue? [Y/n] "
+echo " This script will do as follows:"
+echo "    1. Make symlinks to $HOME."
+echo "    2. Clone repositories to $HOME"
+printf " Are you sure to continue? [Y/n] "
 read x
 case "$x" in
     "" | "Y" | "y" | "yes" | "Yes" )
@@ -18,6 +20,7 @@ case "$x" in
 esac
 file_list=('.vimrc' '.zshrc' '.nanorc' '.gvimrc' '.tmux.conf')
 dir_list=('.vim/vimrc' '.zsh.d' )
+echo ""
 echo "Checking if files or directries already exist..."
 
 
@@ -46,3 +49,21 @@ for item in ${dir_list[@]};do
         fi
     fi
 done
+
+repo=('zplug' 'enhancd')
+echo ""
+for item in ${repo[@]}; do
+    if [ ! -e ~/.$item ]; then
+        which git 1>/dev/null 2>/dev/null
+        if [ ! "$?" = "0" ]; then
+            echo "Please install git command."
+            exit 1
+        fi
+        echo "Folder $item not found."
+        echo "Cloning into $HOME ..."
+        git clone https://github.com/b4br07/$item ~/.$item
+    fi
+done
+
+echo ""
+echo "Operation Finished."
