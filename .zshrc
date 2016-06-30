@@ -6,7 +6,7 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt hist_ignore_dups     # ignore duplication command history list
+setopt histignorealldups
 setopt share_history        # share command history data
 
 function subsh(){
@@ -20,10 +20,10 @@ function command_not_found_handler() {
   echo "Not found such a fuckin' command '$1' 💢 💢 💢"
 }
 
-source ~/.zsh.d/gloval.zsh
-source ~/.zsh.d/alias.zsh
-source ~/.zsh.d/suffix.zsh
-source ~/.zsh.d/keybind.zsh
-source ~/.zsh.d/abbrev.zsh
-source ~/.zsh.d/completion.zsh
-source ~/.zsh.d/zplug.zsh
+source "$HOME/.zsh.d/gloval.zsh"
+source "$HOME/.zsh.d/alias.zsh"
+source "$HOME/.zsh.d/suffix.zsh"
+source "$HOME/.zsh.d/keybind.zsh"
+source "$HOME/.zsh.d/abbrev.zsh"
+source "$HOME/.zsh.d/completion.zsh"
+source "$HOME/.zsh.d/zplug.zsh"

@@ -1,6 +1,7 @@
 " set rtp+=/usr/local/opt/fzf
 let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
+set t_ke=""
 set wildmenu
 set scrolloff=5
 set pumheight=10
@@ -21,6 +22,8 @@ set showcmd
 set title
 set ruler
 set foldmethod=marker
+set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ .\ v:shell_error
+set printoptions=number:y
 " Tab{{{
 set tabstop=4
 set shiftwidth=4

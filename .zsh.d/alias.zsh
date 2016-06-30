@@ -38,11 +38,11 @@ alias cd..='\cd ..'
 # alias ll='\ls -l'
 # alias la='ls -GAF'
 # For GNU ls
-alias l='ls --color=auto'
-alias ls='ls --color=auto -F'
-alias ll='ls --color=auto -lF'
-alias la='ls --color=auto -AF'
-alias a='ls --color=auto -AF'
+alias l='ls --color=auto -N'
+alias ls='ls --color=auto -FN'
+alias ll='ls --color=auto -lFN'
+alias la='ls --color=auto -AFN'
+alias a='ls --color=auto -AFN'
 function del() {
 	if [ "$1" = "it" ]; then
 		dir="$(pwd)"

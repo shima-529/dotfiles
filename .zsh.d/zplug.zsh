@@ -17,10 +17,10 @@ if [ $SHLVL -gt 1 ]; then
 fi
 # ^sを使えるようにする
 setopt no_flow_control
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+# if ! zplug check --verbose; then
+#     printf "Install? [y/N]: "
+#     if read -q; then
+#         echo; zplug install
+#     fi
+# fi
 zplug load

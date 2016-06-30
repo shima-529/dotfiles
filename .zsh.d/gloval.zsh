@@ -13,7 +13,7 @@ export PATH="/usr/local/Cellar/binutils/2.26/x86_64-apple-darwin15.4.0/bin":$PAT
 # 色・プロンプトの設定
 autoload -Uz colors
 colors
-local p_cdir"=%~"
+local p_cdir="%~"
 local p_mark=%(!,#,$)
 PROMPT="
 💻  %m: %F{blue}${p_cdir}%f%}

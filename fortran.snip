@@ -1,0 +1,113 @@
+# inspired/derived from
+# https://github.com/hellolife/Vim/blob/b4b84f5e0685bdccf58474d5311c094e7eab5eb4/vimfiles/autoload/neosnippet/snippets/fortran.snip
+
+# Headers
+snippet program
+options head
+	program ${1:main}
+        implicit none
+		${2}
+        stop
+	end program $1
+
+snippet subroutine
+options head
+	subroutine ${1:`expand('%:r')`}(${2})
+		${3}
+	end subroutine $1
+
+
+snippet module
+abbr module
+options head
+	module ${1:`expand('%:r')`}
+		implicit none
+		save
+		${2}
+	end module $1
+
+snippet function
+options head
+	function ${1:}(${2})
+		${3}
+	end function $1
+
+snippet function_result
+options head
+	function ${1:}(${2}) result(${3})
+		${4}
+	end function $1
+
+# Variable Types
+snippet integer
+options head
+	integer
+
+snippet real8
+options head
+	real(8)
+
+snippet character
+options head
+	character(${1}) :: ${2}
+
+snippet bool
+options head
+	logical
+
+# Dim, Intent etc...
+snippet dimension
+    dimension(${1})
+
+snippet intent
+    intent(${1:in})
+
+# Control Sentences
+snippet if
+options head
+	if (${1}) then
+		${2}
+	end if
+
+snippet read
+abbr read
+options head
+	read(${1:*},${2:*}) ${3}
+
+snippet write
+options head
+	write(${1:*},${2:*}) ${3}
+
+snippet open
+options head
+	open(${1:11},file=${2},status=${3:#:old}${4:#:,position='append'})
+	${5}
+	close($1)
+
+snippet select_case
+options head
+	select case (${1})
+	${2}
+	end select
+
+snippet case
+options head
+	case(${1})
+		${2}
+
+snippet do
+options head
+	do ${1}
+        ${0}
+	end do
+
+snippet type
+options head
+	type ${1:}
+		${2}
+	end type $1
+
+snippet allocate
+    allocate(${1})
+    ${0}
+    deallocate($1)
