@@ -1,18 +1,6 @@
 # Zsh aliases & functions
 alias shell='echo $SHELL'
 alias path='echo $PATH | tr ":" "\n"'
-function path_append(){
-	path_remove "$1"
-	export PATH="$PATH:$1"
-}
-function path_prepend(){
-	path_remove "$1"
-	export PATH="$1:$PATH"
-}
-function path_remove(){ 
-	PATH=$(echo -n "$PATH" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//')
-	export PATH
-}
 
 # cd,ls,openコマンド
 function f(){
@@ -128,7 +116,9 @@ alias q='qlmanage -p 1>/dev/null 2>/dev/null'
 alias tree='tree -N'
 alias type='type -a'
 alias vi="vim"
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+if [ "$(uname)" = "Darwin" ]; then
+	alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+fi
 alias ldd="otool -L"
 
 # サボり系エイリアス

@@ -18,11 +18,11 @@ case "$x" in
     * )
         exit 1;;
 esac
-file_list=('.vimrc' '.zshrc' '.nanorc' '.gvimrc' '.tmux.conf')
-dir_list=('.vim/vimrc' '.zsh.d' )
-echo ""
-echo "Checking if files or directries already exist..."
 
+file_list=('.vimrc' '.zshrc' '.nanorc' '.gvimrc' '.tmux.conf')
+dir_list=('.vim/vimrc' '.zsh.d' '.vim/mysnippets')
+echo ""
+echo "Checking whether files or directries already exist..."
 
 for item in ${file_list[@]};do
     if [ -e ~/$item ]; then
@@ -50,7 +50,7 @@ for item in ${dir_list[@]};do
     fi
 done
 
-repo=('zplug' 'enhancd')
+repo=('enhancd')
 echo ""
 for item in ${repo[@]}; do
     if [ ! -e ~/.$item ]; then
@@ -61,7 +61,7 @@ for item in ${repo[@]}; do
         fi
         echo "Folder $item not found."
         echo "Cloning into $HOME ..."
-        git clone https://github.com/b4br07/$item ~/.$item
+        git clone https://github.com/b4b4r07/$item ~/.$item
     fi
 done
 

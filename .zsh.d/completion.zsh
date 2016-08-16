@@ -13,7 +13,6 @@ setopt cdable_vars
 setopt extended_glob
 setopt globdots
 bindkey "^I" menu-complete
-zstyle ':completion:*:default' menu select=2
 setopt auto_list               # 補完候補を一覧で表示する(d)
 setopt auto_menu               # 補完キー連打で補完候補を順に表示する(d)
 setopt list_packed             # 補完候補をできるだけ詰めて表示する
@@ -25,3 +24,6 @@ setopt nolistbeep
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 今いるディレクトリを補完候補から外す
 zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*:default' menu select=2
+autoload -U compinit
+compinit

@@ -18,17 +18,3 @@ function do_enter() {
 }
 zle -N do_enter
 bindkey '^m' do_enter
-
-function to_parent_dir() {
-	builtin cd ..
-	zle reset-prompt
-}
-zle -N to_parent_dir
-bindkey '' to_parent_dir
-
-function to_home_dir() {
-	builtin cd ~
-	zle reset-prompt
-}
-zle -N to_home_dir
-bindkey '^^' to_home_dir

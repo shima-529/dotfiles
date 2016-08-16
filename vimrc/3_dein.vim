@@ -64,12 +64,13 @@ call dein#add('Shougo/neosnippet-snippets')
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-let g:neosnippet#snippets_directory='~/.vim/dein/mysnippets/'
+let g:neosnippet#snippets_directory='~/.vim/mysnippets/'
 let g:neosnippet#disable_runtime_snippets={
 		\ 'c':       1,
 		\ 'cpp':     1,
 		\ 'fortran': 1,
 		\ 'java':    1,
+		\ 'py':    1,
 		\ }
 " }}}
 " Syntastic {{{
@@ -161,7 +162,7 @@ call dein#add('haya14busa/incsearch.vim')
 	let g:syntastic_mode_map = { 'mode': 'passive' }
 	augroup AutoSyntastic
 		autocmd!
-		autocmd BufWritePost *.c,*.cpp,*.cs,*.f90 call s:syntastic()
+		autocmd BufWritePost *.c,*.cpp,*.cs,*.f90,*.py,*.java,*.rb,*.cs call s:syntastic()
 	augroup END
 	function! s:syntastic()
 		SyntasticCheck
@@ -232,29 +233,41 @@ let g:rbpt_max = 16
 " call dein#add ('leftouterjoin/changed')
 " call dein#add('vim-jp/vimdoc-ja')
 " call dein#add('lervag/vimtex')
-" call dein#add('davidhalter/jedi-vim')
-"autocmd FileType python setlocal omnifunc=jedi#completions
-"let g:jedi#auto_vim_configuration = 0
-"if !exists('g:neocomplete#force_omni_input_patterns')
-"let g:neocomplete#force_omni_input_patterns = {}
-"endif
-"let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-" set completeopt-=preview
+call dein#add('davidhalter/jedi-vim', {'on_ft' : 'py'})
+autocmd FileType python let g:loaded_neocomplete = 1
+autocmd FileType python setlocal omnifunc=jedi#completions
+autocmd FileType python setlocal completeopt-=preview
+let g:jedi#auto_vim_configuration = 1
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_command = "<C-r>"
+let g:jedi#goto_assignments_command = "<C-g>"
+let g:jedi#goto_definitions_command = "<C-d>"
+if !exists('g:neocomplete#force_omni_input_patterns')
+let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+set completeopt-=preview
+call dein#add('nosami/Omnisharp', {'on_ft': 'cs'})
+call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
+call dein#add('keith/swift.vim', {'on_ft': 'swift'})
+autocmd FileType swift set noshowmatch
+autocmd FileType swift let g:loaded_neocomplete = 1
 " ===========================================
 call dein#end()
 call dein#save_state()
-colorscheme solarized
-" カラースキームの色設定 {{{
-" For Solarized
-hi Comment ctermfg=11
-hi SpecialKey ctermbg=8 ctermfg=23
-" }}}
-" もし、未インストールものものがあったらインストール
 if dein#check_install()
 	call dein#install()
 endif
 filetype plugin indent on
 syntax on
+colorscheme solarized
+" カラースキームの色設定 {{{
+" For Solarized
+set background=dark
+hi Comment ctermfg=11
+hi SpecialKey ctermbg=NONE ctermfg=10
+" hi SpecialKey ctermbg=8 ctermfg=23
+" もし、未インストールものものがあったらインストール
 " function! DeinReCache() abort
 " 	call system("rm -rf $HOME/.vim/dein/temp $HOME/.vim/dein/rollbacks")
 " 	call dein#recache_runtimepath()

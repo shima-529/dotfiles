@@ -1,13 +1,10 @@
-# Zplug
-source ~/.zplug/zplug
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "b4b4r07/emoji-cli"
-
+source ~/.zsh.d/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/.zsh.d/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey '^e' fzf-file-widget
 [ -f ~/.enhancd/zsh/enhancd.zsh ] && source ~/.enhancd/enhancd.sh
 if [ $SHLVL -gt 1 ]; then
 	type fzf-tmux 1>/dev/null 2>/dev/null
@@ -17,10 +14,3 @@ if [ $SHLVL -gt 1 ]; then
 fi
 # ^sを使えるようにする
 setopt no_flow_control
-# if ! zplug check --verbose; then
-#     printf "Install? [y/N]: "
-#     if read -q; then
-#         echo; zplug install
-#     fi
-# fi
-zplug load

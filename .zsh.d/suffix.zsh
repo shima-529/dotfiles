@@ -14,15 +14,20 @@ function runC(){
 	rm /tmp/tmp.out 2>&1 > /dev/null
 }
 
-function runCpp(){
+function runcpp(){
 	g++ $1 -o /tmp/tmp.out && shift && /tmp/tmp.out $@
 	rm /tmp/tmp.out 2>&1 > /dev/null
 }
 
 alias -s py='python'
+alias -s rb='ruby'
+alias -s pl='perl'
+alias -s php='php'
 alias -s c=runC
-alias -s cpp=runCpp
+alias -s d='rdmd'
+alias -s cpp=runcpp
 alias -s f90=runFortran
 alias -s {css,md,markdown,html,php}='subl'
-alias -s {vim,rc}='vim'
+alias -s {vim,rc,zsh}='vim'
+alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='open'
 alias -s java=runJava

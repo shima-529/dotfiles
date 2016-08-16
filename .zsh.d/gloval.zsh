@@ -10,14 +10,15 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin":$PATH
 export PATH="/usr/local/opt/coreutils/libexec/gnubin":$PATH
 export PATH="/Library/TeX/texbin":$PATH
 export PATH="/usr/local/Cellar/binutils/2.26/x86_64-apple-darwin15.4.0/bin":$PATH
+export PATH="$HOME/usr/m-cli":$PATH
 # 色・プロンプトの設定
 autoload -Uz colors
 colors
 local p_cdir="%~"
-local p_mark=%(!,#,$)
+local p_mark="$"
 PROMPT="
 💻  %m: %F{blue}${p_cdir}%f%}
-[%n] $p_mark "
+[%n] ${p_mark} "
 
 # git用の右プロンプト
 function rprompt-git-current-branch {
