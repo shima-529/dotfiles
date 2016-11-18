@@ -2,7 +2,6 @@ setopt extended_glob
 typeset -A abbreviations
 abbreviations=(
     "v"    "vim"
-	"e"    "emacs"
 	"hid"  "hidden"
 	"gf"   "gfortran"
 	"gs"   "git status"
@@ -21,7 +20,6 @@ abbreviations=(
 	"bc"   "brew cleanup -s"
 	"zrc"   "zshrc"
 	"vrc"   "vimrc"
-	"sq"   "seq"
     "G"    "| grep"
 	"L"    "| less"
 	"R"    "| richpager"

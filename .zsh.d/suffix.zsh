@@ -29,5 +29,5 @@ alias -s cpp=runcpp
 alias -s f90=runFortran
 alias -s {css,md,markdown,html,php}='subl'
 alias -s {vim,rc,zsh}='vim'
-alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='open'
+alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='icat'
 alias -s java=runJava

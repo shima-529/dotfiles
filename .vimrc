@@ -1,4 +1,2 @@
-" runtime! vimrc/*.vim
-runtime! vimrc/1_Basic.vim
-runtime! vimrc/2_Keymap.vim
-runtime! vimrc/3_dein.vim
+runtime! vimrc/*.vim
+let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'

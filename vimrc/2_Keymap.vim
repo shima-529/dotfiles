@@ -39,6 +39,8 @@ nmap <silent> <CR> i<CR><C-j>
 inoremap <C-l> <C-x><C-l>
 " ヘルプを引きやすくする
 nnoremap <C-h> :<C-u>help<Space>
+" Visualモード中、C-p で縦全部に貼り付けする
+vnoremap <C-p> I<C-r>"<ESC><ESC>
 "カーソルを表示行で移動する。 {{{
 nnoremap j gj
 nnoremap k gk

@@ -55,18 +55,11 @@ let g:incsearch#auto_nohlsearch = 1
 " highlight PmenuThumb ctermfg=202
 " highlight CursorLineNr term=bold   cterm=NONE ctermfg=202 ctermbg=223
 " }}}
-" C++のヘッダファイルをcpp形式だと認識させる{{{
-" " 標準ライブラリへのパスを設定
-" let $CPP_STDLIB = "/usr/local/Cellar/"
-" augroup vimrc-set_filetype_cpp
-" 	autocmd!
-" 	" $CPP_STDLIB よりも下の階層のファイルが開かれて
-" 	" filetype が設定されていない場合に filetype=cpp を設定する
-" 	autocmd BufReadPost $CPP_STDLIB/* if empty(&filetype) | set filetype=cpp | endif
-" augroup END
-" }}}
 " 前回保存時のカーソル位置を記憶
 augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
   \ exe "normal g`\"" | endif
 augroup END
+" 改行時のコメントアウトを無効化する
+set formatoptions-=r
+set formatoptions-=o
