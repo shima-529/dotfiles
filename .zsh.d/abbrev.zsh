@@ -1,6 +1,8 @@
 setopt extended_glob
 typeset -A abbreviations
 abbreviations=(
+    "epigenetic"    "DNA塩基配列の変化を伴わない細胞分裂後も継承される遺伝子発現あるいは細胞表現型の変化を研究する学問領域"
+    "epigenome" "DNAメチル化等による生後の染色体機能変化"
     "v"    "vim"
 	"hid"  "hidden"
 	"gf"   "gfortran"
