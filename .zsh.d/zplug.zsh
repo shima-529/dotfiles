@@ -4,7 +4,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey '^e' fzf-file-widget
+# bindkey '^e' fzf-file-widget
 [ -f ~/.enhancd/zsh/enhancd.zsh ] && source ~/.enhancd/enhancd.sh
 if [ $SHLVL -gt 1 ]; then
 	type fzf-tmux 1>/dev/null 2>/dev/null

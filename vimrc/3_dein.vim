@@ -8,19 +8,19 @@ endif
 if v:version < 704
 	finish
 endif
-	let s:dein_dir = s:vimdir . '/dein'
-	" let s:dein_repo_name = "Shougo/dein.vim"
-	let s:dein_repo_dir = s:vimdir . '/dein/repos/github.com/Shougo/dein.vim'
-	if !isdirectory(s:dein_repo_dir)
-		echo "dein is not installed, install now "
-		let s:dein_repo = "https://github.com/" . s:dein_repo_name
-		echo "git clone " . s:dein_repo . " " . s:dein_repo_dir
-		call system("git clone " . s:dein_repo . " " . s:dein_repo_dir)
-	endif
-	let &runtimepath = &runtimepath . ',' . s:dein_repo_dir
-	call dein#begin(s:dein_dir)
-	call dein#add('Shougo/dein.vim')
-	" ===========================================
+let s:dein_dir = s:vimdir . '/dein'
+" let s:dein_repo_name = "Shougo/dein.vim"
+let s:dein_repo_dir = s:vimdir . '/dein/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+	echo "dein is not installed, install now "
+	let s:dein_repo = "https://github.com/" . s:dein_repo_name
+	echo "git clone " . s:dein_repo . " " . s:dein_repo_dir
+	call system("git clone " . s:dein_repo . " " . s:dein_repo_dir)
+endif
+let &runtimepath = &runtimepath . ',' . s:dein_repo_dir
+call dein#begin(s:dein_dir)
+call dein#add('Shougo/dein.vim')
+" ===========================================
 " }}}
 call dein#add('vim-jp/vimdoc-ja')
 " *** Color Schemes {{{
@@ -81,13 +81,13 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 let g:neosnippet#snippets_directory='~/.vim/mysnippets/'
 let g:neosnippet#disable_runtime_snippets={
-		\ '_':       1,
-		\ 'c':       1,
-		\ 'cpp':     1,
-		\ 'fortran': 1,
-		\ 'java':    1,
-		\ 'py':    1,
-		\ }
+			\ '_':       1,
+			\ 'c':       1,
+			\ 'cpp':     1,
+			\ 'fortran': 1,
+			\ 'java':    1,
+			\ 'py':    1,
+			\ }
 " }}}
 " Syntastic {{{
 call dein#add('scrooloose/syntastic.git')
@@ -112,6 +112,7 @@ if !has('nvim')
 	let g:neocomplete#enable_smart_case = 1
 	let g:neocomplete#enable_auto_select = 1
 	let g:neocomplete#enable_enable_camel_case_completion = 0
+	autocmd FileType python set omnifunc=none
 	if !exists('g:neocomplete#keyword_patterns')
 		let g:neocomplete#keyword_patterns = {}
 	endif
@@ -143,7 +144,7 @@ else
 	imap <expr> <C-h> deoplete#cancel_popup()
 	imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
 endif
-	" }}}
+" }}}
 " }}}
 " *** Operators {{{
 call dein#add('kana/vim-operator-user')
@@ -278,22 +279,22 @@ au VimEnter * RainbowParenthesesLoadRound
 au VimEnter * RainbowParenthesesLoadSquare
 au VimEnter * RainbowParenthesesLoadBraces
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+			\ ['brown',       'RoyalBlue3'],
+			\ ['Darkblue',    'SeaGreen3'],
+			\ ['darkgray',    'DarkOrchid3'],
+			\ ['darkgreen',   'firebrick3'],
+			\ ['darkcyan',    'RoyalBlue3'],
+			\ ['darkred',     'SeaGreen3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['brown',       'firebrick3'],
+			\ ['gray',        'RoyalBlue3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['Darkblue',    'firebrick3'],
+			\ ['darkgreen',   'RoyalBlue3'],
+			\ ['darkcyan',    'SeaGreen3'],
+			\ ['darkred',     'DarkOrchid3'],
+			\ ['red',         'firebrick3'],
+			\ ]
 let g:rbpt_max = 15
 " }}}
 call dein#add('b4b4r07/vim-shellutils')
@@ -309,6 +310,12 @@ call dein#add('b4b4r07/vim-shellutils')
 " }}}
 " call dein#add('vimtaku/vim-mlh.git')
 call dein#add('TagHighlight')
+call dein#add('kana/vim-smartchr')
+" inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
+" inoremap <buffer> <expr> . smartchr#loop('.', '->')
+" inoremap <buffer> <expr> , smartchr#loop(', ', ',')
+call dein#add('fuenor/qfixhowm')
+call dein#add('emezeske/manpageview')
 hi link CTagsFunction None
 hi link CTagsGlobalVariable None
 hi link CTagsMember None

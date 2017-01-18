@@ -14,8 +14,8 @@ nnoremap ZQ <Nop>
 noremap! <C-j> <ESC>
 nnoremap / /\v
 " 行頭／末へのカーソル移動を直感的に
-noremap 1 0
-noremap 0 $
+" noremap 1 0
+" noremap 0 $
 noremap Y y$
 noremap <SPACE> za
 " Split View {{{
@@ -41,6 +41,10 @@ inoremap <C-l> <C-x><C-l>
 nnoremap <C-h> :<C-u>help<Space>
 " Visualモード中、C-p で縦全部に貼り付けする
 vnoremap <C-p> I<C-r>"<ESC><ESC>
+" タブキーで全インデント揃える
+noremap <Tab> ggVG=g;
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
 "カーソルを表示行で移動する。 {{{
 nnoremap j gj
 nnoremap k gk

@@ -30,6 +30,7 @@ alias ls='ls --color=auto -FN'
 alias ll='ls --color=auto -lFN'
 alias la='ls --color=auto -AFN'
 alias a='ls --color=auto -AFN'
+alias grep='grep --color=auto'
 function del() {
     if [ "$1" = "it" ]; then
         dir="$(pwd)"
@@ -42,6 +43,8 @@ function del() {
 # その他
 alias fuck='eval $(thefuck $(fc -ln -1))'
 alias dock='killall dock'
+alias vsel='SEL=vim sel ~/.vimrc ~/.vim/vimrc/*.vim'
+alias zsel='SEL=vim sel ~/.zshrc ~/.zsh.d/*.zsh'
 # zshrc(), vimrc() {{{
 function zshrc(){
     i=0
@@ -109,11 +112,10 @@ function vpn(){
     fi
 }
 alias df='df -h'
-alias du='du --total -h | grep "total"'
 alias whiptail='dialog'
 alias tree='tree -N'
 alias type='type -a'
-alias vi="vim"
+# alias vi="vim"
 if [ "$(uname)" = "Darwin" ]; then
     alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 fi

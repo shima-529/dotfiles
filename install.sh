@@ -1,3 +1,4 @@
+#! /bin/bash
 echo "     _       _    __ _ _                  _ _"
 echo "  __| | ___ | |_ / _(_) | ___  ___   __ _(_) |_"
 echo " / _\` |/ _ \| __| |_| | |/ _ \/ __| / _\` | | __|"
@@ -10,11 +11,11 @@ echo " This script will do as follows:"
 echo "    1. Make symlinks to $HOME."
 echo "    2. Clone repositories to $HOME"
 printf " Are you sure to continue? [Y/n] "
-read x
+read -r x
 case "$x" in
     "" | "Y" | "y" | "yes" | "Yes" )
         true
-        cd `dirname $0`;;
+        cd "$(dirname $0)";;
     * )
         exit 1;;
 esac
@@ -28,7 +29,7 @@ for item in ${file_list[@]};do
     if [ -e ~/$item ]; then
         echo "$item exists."
     else
-        ln -s $PWD/$item ~ 2>/dev/null
+        ln -s $PWD/$item $HOME 2>/dev/null
         if [ "$?" = "0" ]; then
             echo "symlink $item created."
         else
@@ -41,7 +42,7 @@ for item in ${dir_list[@]};do
     if [ -e ~/$item ]; then
         echo "$item exists."
     else
-        ln -s $PWD/$item ~ 2>/dev/null
+        ln -s $PWD/$item $HOME 2>/dev/null
         if [ "$?" = "0" ]; then
             echo "symlink $item created."
         else
@@ -50,7 +51,7 @@ for item in ${dir_list[@]};do
     fi
 done
 
-repo=('enhancd')
+repo=('b4b4r07/enhancd')
 echo ""
 for item in ${repo[@]}; do
     if [ ! -e ~/.$item ]; then
@@ -61,7 +62,7 @@ for item in ${repo[@]}; do
         fi
         echo "Folder $item not found."
         echo "Cloning into $HOME ..."
-        git clone https://github.com/b4b4r07/$item ~/.$item
+        git clone https://github.com/$item $PWD/.zsh.d/plugins
     fi
 done
 

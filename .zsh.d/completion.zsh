@@ -9,7 +9,6 @@ setopt magic_equal_subst
 setopt complete_in_word
 setopt always_last_prompt
 setopt print_eight_bit
-setopt cdable_vars
 setopt extended_glob
 setopt globdots
 bindkey "^I" menu-complete
@@ -26,4 +25,4 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:default' menu select=2
 autoload -U compinit
-compinit
+compinit -u

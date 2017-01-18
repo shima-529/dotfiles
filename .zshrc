@@ -27,6 +27,15 @@ source "$HOME/.zsh.d/gloval.zsh"
 source "$HOME/.zsh.d/alias.zsh"
 source "$HOME/.zsh.d/suffix.zsh"
 source "$HOME/.zsh.d/keybind.zsh"
+source "$HOME/.zsh.d/vimode.zsh"
 source "$HOME/.zsh.d/abbrev.zsh"
 source "$HOME/.zsh.d/zplug.zsh"
 source "$HOME/.zsh.d/completion.zsh"
+
+# if (which zprof > /dev/null) ;then
+#   zprof | less
+# fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

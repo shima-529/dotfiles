@@ -2,6 +2,9 @@
 let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
 set t_ke=""
+set t_ut=""
+" set timeout timeoutlen=50 " Escで待たされる現象解消
+" 詳しくは http://yukidarake.hateblo.jp/entry/2015/07/10/201356 へ
 set wildmenu
 set scrolloff=5
 set pumheight=10
