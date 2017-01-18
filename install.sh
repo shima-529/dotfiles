@@ -51,7 +51,7 @@ for item in ${dir_list[@]};do
     fi
 done
 
-repo=('b4b4r07/enhancd')
+repo=('b4b4r07/enhancd' 'zsh-users/zsh-syntax-highlighting' 'zsh-users/zsh-history-substring-search' 'zsh-users/zaw')
 echo ""
 for item in ${repo[@]}; do
     if [ ! -e ~/.$item ]; then
@@ -62,7 +62,7 @@ for item in ${repo[@]}; do
         fi
         echo "Folder $item not found."
         echo "Cloning into $HOME ..."
-        git clone https://github.com/$item $PWD/.zsh.d/plugins
+        git clone https://github.com/$item $PWD/.zsh.d/plugins/${item##*/}
     fi
 done
 
