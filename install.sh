@@ -42,7 +42,10 @@ for item in ${dir_list[@]};do
     if [ -e ~/$item ]; then
         echo "$item exists."
     else
-        ln -s $PWD/$item $HOME 2>/dev/null
+        if [ ! -e ${item%%/*} ]; then
+            mkdir ~/${item%%/*}
+        fi
+        ln -s $PWD/${item##*/} ${item%%/*}/${item##*/} 2>/dev/null
         if [ "$?" = "0" ]; then
             echo "symlink $item created."
         else
