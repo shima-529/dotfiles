@@ -1,19 +1,12 @@
 # 補完
-setopt auto_param_slash
-setopt mark_dirs
-setopt list_types
-setopt auto_menu
+# 参考は http://voidy21.hatenablog.jp/entry/20090902/1251918174
 setopt auto_param_keys
-setopt interactive_comments
-setopt magic_equal_subst
-setopt complete_in_word
-setopt always_last_prompt
-setopt print_eight_bit
-setopt extended_glob
-setopt globdots
+setopt interactive_comments # ZLE上でも#をコメントとみなす
+setopt magic_equal_subst # --prefix=/usr... など、どこでも補完
+# setopt complete_in_word
+# setopt always_last_prompt # カーソル位置を保持して補完
 bindkey "^I" menu-complete
-setopt auto_list               # 補完候補を一覧で表示する(d)
-setopt auto_menu               # 補完キー連打で補完候補を順に表示する(d)
+# setopt auto_list               # 補完候補を一覧で表示する(d)
 setopt list_packed             # 補完候補をできるだけ詰めて表示する
 # setopt list_types              # 補完候補にファイルの種類も表示する
 bindkey "[Z]" reverse-menu-complete  # Shift-Tabで補完候補を逆順する("\e[Z"でも動作する)
@@ -23,6 +16,7 @@ setopt nolistbeep
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 今いるディレクトリを補完候補から外す
 zstyle ':completion:*' ignore-parents parent pwd ..
+# 矢印キーで補完を選択可能に
 zstyle ':completion:*:default' menu select=2
 autoload -U compinit
 compinit -u

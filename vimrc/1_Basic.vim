@@ -1,8 +1,8 @@
 " set rtp+=/usr/local/opt/fzf
-let &t_ti .= "\e[22;0t"
-let &t_te .= "\e[23;0t"
-set t_ke=""
-set t_ut=""
+" let &t_ti .= "\e[22;0t"
+" let &t_te .= "\e[23;0t"
+" set t_ke=""
+" set t_ut=""
 " set timeout timeoutlen=50 " Escで待たされる現象解消
 " 詳しくは http://yukidarake.hateblo.jp/entry/2015/07/10/201356 へ
 set wildmenu
@@ -33,14 +33,9 @@ set shiftwidth=4
 set noexpandtab
 set softtabstop=4
 " }}}
-" 忌まわしき全角スペース
-" highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 set cursorline
-" highlight CursorLine cterm=NONE ctermfg=NONE
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-" highlight SpecialKey ctermfg=180
-" match ZenkakuSpace /　/
 " 検索系{{{
 set incsearch
 set ignorecase

@@ -1,5 +1,5 @@
 function runJava(){
-	className=${1%.java}
+	local className=${1%.java}
 	javac $1 && shift && java ${className} $@
 	rm ./${className}.class
 }
@@ -23,11 +23,10 @@ alias -s py='python'
 alias -s rb='ruby'
 alias -s pl='perl'
 alias -s php='php'
-alias -s c=runC
-alias -s d='rdmd'
-alias -s cpp=runcpp
 alias -s f90=runFortran
-alias -s {css,md,markdown,html,php}='subl'
-alias -s {vim,rc,zsh}='vim'
-alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='icat'
+alias -s c=runC
+alias -s cpp=runcpp
+alias -s d='rdmd'
 alias -s java=runJava
+alias -s {css,md,markdown,html,php}='subl'
+alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='icat'
