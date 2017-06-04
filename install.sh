@@ -43,7 +43,7 @@ for item in ${dir_list[@]};do
         echo "$item exists."
     else
         if [ ! -e ${item%%/*} ]; then
-            mkdir ~/${item%%/*}
+            mkdir $HOME/${item%%/*}
         fi
         ln -s $PWD/${item##*/} $HOME/${item%%/*}/${item##*/} 2>/dev/null
         if [ "$?" = "0" ]; then
@@ -65,7 +65,7 @@ for item in ${repo[@]}; do
         fi
         echo "Folder $item not found."
         echo "Cloning into $HOME ..."
-        git clone https://github.com/$item $PWD/.zsh.d/plugins/${item##*/}
+        git clone https://github.com/$item $PWD/.zsh.d/plugins/${item##*/} 2>/dev/null
     fi
 done
 

@@ -53,7 +53,6 @@ function vpn(){
         echo "Please fix on/off parameter." >&2
     fi
 }
-alias df='df -h'
 alias whiptail='dialog'
 alias tree='tree -N'
 alias type='type -a'
@@ -64,9 +63,6 @@ alias ldd="otool -L"
 
 # typo対策
 alias ks='ls'
-
-alias ghc='stack ghc'
-alias ghci='stack ghci'
 
 alias banana="echo '\xf0\x9f\x8d\x8c'"
 alias lemon="banana | sed 's/\x8c/\x8b/'"

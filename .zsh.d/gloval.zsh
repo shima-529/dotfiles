@@ -8,9 +8,15 @@ export PATH="/usr/local/texlive/2016basic/bin/x86_64-darwin:$PATH"
 export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="/Applications/redsuite_5.2.6_2137/redsuite/tools/bin:$PATH"
 export PATH="$PATH:$HOME/usr/m-cli"
+export PATH="$PATH:$HOME/.stack/programs/x86_64-osx/ghc-8.0.2/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/usr/local/h8-elf/bin"
+export PATH="$PATH:/usr/local/CrossPack-AVR/bin"
 export HOMEBREW_NO_AUTO_UPDATE=1
 export LESS='-g -i -M -R -W -z-4 -x4'
+export GTK_PATH=/usr/local/lib/gtk-2.0
 function man() {
 	env \
 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \

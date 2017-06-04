@@ -24,6 +24,8 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" }}}
 	call dein#add('vim-jp/vimdoc-ja')
 	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
+	call dein#add("thinca/vim-quickrun")
+	call dein#add("Shougo/vimproc")
 	" *** Color Schemes {{{
 	" call dein#add('w0ng/vim-hybrid')
 	" call dein#add('vim-scripts/twilight')
@@ -46,11 +48,30 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:sh_indent_case_labels=1
 	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
 	call dein#add('shima-529/C-prototype.vim', {'on_ft' : ['c', 'cpp', 'cc', 'cxx']})
+	call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})
+	call dein#add('eagletmt/neco-ghc', {'on_ft': 'haskell'})
+	call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
+	noremap <silent> <Leader>tt :GhcModType<CR>
+	noremap <silent> <Leader>t :GhcModTypeClear<CR>
+	call dein#add('OmniSharp/omnisharp-vim', {'on_ft': 'cs'})
 	" }}}
 	" vim-quickrun {{{
 	call dein#add('thinca/vim-quickrun')
 	let g:quickrun_config = get(g:, 'quickrun_config', {})
-	let g:quickrun_config._ = {'runner'    : 'vimproc', 'runner/vimproc/updatetime' : 60, 'outputter' : 'error', 'outputter/error/success' : 'buffer', 'outputter/error/error'   : 'quickfix', 'outputter/buffer/split'  : ':botright 8sp', 'outputter/buffer/close_on_empty' : 1, }
+	let g:quickrun_config._ = {
+				\ 'runner'    : 'vimproc',
+				\ 'runner/vimproc/updatetime' : 60,
+				\ 'outputter' : 'error',
+				\ 'outputter/error/success' : 'buffer',
+				\ 'outputter/error/error' : 'buffer',
+				\ 'outputter/buffer/split'  : ':botright 8sp',
+				\ 'outputter/buffer/close_on_empty' : 1,
+				\ }
+				" \ 'outputter/error/error'   : 'quickfix',
+	let g:quickrun_config.cpp = {
+				\   'cmdopt': '-std=c++11'
+				\ }
+	nnoremap <silent><Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 	" }}}
 	" *** Unite {{{
 	" call dein#add('Shougo/unite.vim')
@@ -76,17 +97,17 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" }}}
 	" Syntastic {{{
 	call dein#add('scrooloose/syntastic.git', {'lazy': 1, 'on_event': 'InsertEnter'})
-	set statusline+=%#warningmsg#
-	set statusline+=%{SyntasticStatuslineFlag()}
-	set statusline+=%*
+	" set statusline+=%#warningmsg#
+	" set statusline+=%{SyntasticStatuslineFlag()}
+	" set statusline+=%*
 	let g:syntastic_javascript_checkers = ['jshint']
 	let g:syntastic_python_checkers = ['flake8']
 	let g:syntastic_always_populate_loc_list = 1
 	let g:syntastic_auto_loc_list = 1
 	let g:syntastic_check_on_open = 0
 	let g:syntastic_check_on_wq = 0
-	let g:syntastic_c_compiler_options = '-Wall'
-	let g:syntastic_cpp_compiler_options = '-Wall -I~/.platformio/packages/framework-mbed'
+	let g:syntastic_c_compiler_options = '-Wall -I ~/.platformio/packages/framework-mbed/targets/TARGET_NXP/TARGET_LPC11XX_11CXX/device -I ~/.platformio/packages/framework-mbed/cmsis'
+	let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall -I ~/.platformio/packages/framework-mbed'
 	" }}}
 	" NeoComplete {{{
 	call dein#add('Shougo/neocomplete.vim')
@@ -116,6 +137,20 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
 	" }}}
 	call dein#add('Shougo/neoinclude.vim')
+	call dein#add('justmao945/vim-clang')
+	let g:clang_auto = 0 " 一番上を選択しない
+	" vim-clang 用に NeoCompleteをあわせる
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {} 
+	endif
+	let g:neocomplete#force_overwrite_completefunc = 1
+	let g:neocomplete#force_omni_input_patterns.c =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+	let g:neocomplete#force_omni_input_patterns.cpp =
+				\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	let g:clang_c_completeopt = 'longest,menuone' " disable Scratch buffer
+	let g:clang_cpp_completeopt = 'longest,menuone'
+	let g:clang_diagsopt = ''
 	" }}}
 	" *** Operators {{{
 	call dein#add('kana/vim-operator-user')
@@ -129,6 +164,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:tcommentGuessFileType_awk = 'sh'
 	let g:tcommentGuessFileType_kue2 = 'sh'
 	" }}}
+
 	call dein#add('terryma/vim-expand-region')
 	" call dein#add('mattn/benchvimrc-vim')
 	call dein#add('AndrewRadev/switch.vim')
@@ -229,6 +265,9 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 		autocmd BufWritePost *.c,*.cpp,*.hpp,*.cs,*.f90,*.py,*.java,*.js,*.rb,*.cs call s:syntastic()
 	augroup END
 	function! s:syntastic()
+		if (stridx(getline(line('.')), 'nosyn') != -1)
+			return
+		endif
 		SyntasticCheck
 		call lightline#update()
 	endfunction
@@ -288,7 +327,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" }}}
 	" call dein#add('vimtaku/vim-mlh.git')
 	" call dein#add('TagHighlight')
-	call dein#add('fuenor/qfixhowm')
+	" call dein#add('fuenor/qfixhowm')
 	call dein#add('emezeske/manpageview')
 	hi link CTagsFunction None
 	hi link CTagsGlobalVariable None
