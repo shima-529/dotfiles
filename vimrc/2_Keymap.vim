@@ -62,3 +62,6 @@ nnoremap k gk
 nnoremap <Down> gj
 nnoremap <Up>   gk
 " }}}
+" タブ機能
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT

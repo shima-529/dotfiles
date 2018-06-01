@@ -4,6 +4,7 @@ FPATH="/usr/local/share/zsh-completions:$FPATH"
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 set nomatch
+disable r
 
 # コマンド履歴
 HISTFILE=~/.zsh_history
@@ -20,7 +21,7 @@ setopt share_history        # share command history data
 
 # コマンドtypo時
 function command_not_found_handler() {
-  echo "Not found such a fuckin' command '$1' 💢 💢 💢"
+  echo "Not found such a fuckin' command '$1' 💢💢💢"
 }
 
 source "$HOME/.zsh.d/gloval.zsh"
@@ -37,3 +38,6 @@ source "$HOME/.zsh.d/zplug.zsh"
 # fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# OPAM configuration
+. /Users/yuki/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

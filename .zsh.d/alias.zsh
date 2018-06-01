@@ -19,6 +19,7 @@ function cdf () {
     fi
 }
 alias cd..='\cd ..'
+alias cdd='~/cdd.sh'
 # For FreeBSD ls
 # alias l='ls'
 # alias ls='\ls -GF'
