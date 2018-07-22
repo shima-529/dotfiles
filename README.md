@@ -1,15 +1,19 @@
-#DotFiles
-This repository contains the setting files used in my Mac.  
+```
+ ____        _   _____ _ _
+|  _ \\  ___ | |_|  ___(_) | ___  ___
+| | | |/ _ \\| __| |_  | | |/ _ \\/ __|
+| |_| | (_) | |_|  _| | | |  __/\\__ \\
+|____/ \\___/ \\__|_|   |_|_|\\___||___/
+```
+
+This repository contains setting files currently used in my Mac.
 The contents are as follows:
 
-- .bash_profile
 - .zshrc
 - .vimrc
+	- .gvimrc
+- .nanorc
+- .tmux.conf
 
-#Attention
-In order to use these files in other machines or Linux systems, you will need to change some lines because these contains environment-dependent commands.
-
-##Such as
-The 'shopt' command is not available if you are using bash version less than 4.
-The 'open' command is only for Mac OS X.
-The 'NeoComplete' pulgin is not available if you are using Vim 7.3 or less and Vim without +Lua.
+# Attention
+You may need to modify some lines so that the configuration fits your environment.
