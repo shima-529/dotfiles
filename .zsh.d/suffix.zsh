@@ -30,3 +30,4 @@ alias -s d='rdmd'
 alias -s java=runJava
 alias -s {css,md,markdown,html,php}='subl'
 alias -s {bmp,BMP,png,PNG,jpg,jpeg,JPG,gif,GIF,eps,EPS}='icat'
+alias -s {pdf,PDF}='open'

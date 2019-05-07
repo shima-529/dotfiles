@@ -65,3 +65,4 @@ nnoremap <Up>   gk
 " タブ機能
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
+nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>

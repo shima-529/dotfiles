@@ -38,6 +38,8 @@ source "$HOME/.zsh.d/zplug.zsh"
 # fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # OPAM configuration
 . /Users/yuki/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# zmodload zsh/zprof && zprof

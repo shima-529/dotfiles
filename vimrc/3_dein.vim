@@ -20,42 +20,32 @@ let &runtimepath = &runtimepath . ',' . s:dein_repo_dir
 if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	call dein#begin(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	call dein#add('Shougo/dein.vim')
-	" ===========================================
 	" }}}
-	call dein#add('vim-jp/vimdoc-ja')
 	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
-	call dein#add("thinca/vim-quickrun")
+	call dein#add('haya14busa/incsearch.vim')
 	" *** Color Schemes {{{
-	" call dein#add('w0ng/vim-hybrid')
-	" call dein#add('vim-scripts/twilight')
 	call dein#add('altercation/vim-colors-solarized')
 	call dein#add('lifepillar/vim-solarized8')
-	" call dein#add('croaker/mustang-vim')
-	" call dein#add('jeffreyiacono/vim-colors-wombat')
-	" call dein#add('nanotech/jellybeans.vim')
-	" call dein#add('vim-scripts/Lucius')
-	" call dein#add('vim-scripts/Zenburn')
-	" call dein#add('mrkn/mrkn256.vim')
-	" call dein#add('jpo/vim-railscasts-theme')
-	" call dein#add('therubymug/vim-pyte')
 	call dein#add('tomasr/molokai')
 	" }}}
 	" *** Language Environments {{{
 	" 使う(った)言語: sh fortran c cpp python awk
+	call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['c', 'cpp', 'h', 'hpp']})
+	let g:cpp_concepts_highlight = 1
 	call dein#add('vim-scripts/awk.vim', {'on_ft': 'awk'})
-	call dein#add('vim-scripts/info.vim')
 	call dein#add('vim-scripts/sh.vim', {'on_ft': 'sh'})
+	call dein#add('vim-scripts/vbnet.vim', {'on_ft': 'vbnet'})
 	call dein#add('zah/nim.vim', {'on_ft': 'nim'})
 	call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 	call dein#add('ARM9/arm-syntax-vim', {'on_ft': 'arm'})
 	let g:sh_indent_case_labels=1
 	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
-	" call dein#add('shima-529/C-prototype.vim', {'on_ft' : ['c', 'cpp', 'cc', 'cxx']})
-	call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})
-	call dein#add('eagletmt/neco-ghc', {'on_ft': 'haskell'})
-	call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
-	noremap <silent> <Leader>tt :GhcModType<CR>
-	noremap <silent> <Leader>t :GhcModTypeClear<CR>
+	" call dein#add('hachibeeDI/vim-vbnet', {'on_ft': 'vbnet'})
+	" call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})
+	" call dein#add('eagletmt/neco-ghc', {'on_ft': 'haskell'})
+	" call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
+	" noremap <silent> <Leader>tt :GhcModType<CR>
+	" noremap <silent> <Leader>t :GhcModTypeClear<CR>
 	" call dein#add('OmniSharp/omnisharp-vim', {'on_ft': 'cs'})
 	" }}}
 	" vim-quickrun {{{
@@ -70,20 +60,42 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\ 'outputter/buffer/split'  : ':botright 8sp',
 				\ 'outputter/buffer/close_on_empty' : 1,
 				\ }
-				" \ 'outputter/error/error'   : 'quickfix',
 	let g:quickrun_config.cpp = {
-				\   'cmdopt': '-std=c++14'
+				\ 'command' : 'g++',
+				\   'cmdopt': '-std=c++2a -fconcepts',
 				\ }
+	let g:quickrun_config['tex'] = {
+				\ 'command' : 'latexmk',
+				\ 'outputter' : 'error',
+				\ 'outputter/error/success' : 'null',
+				\ 'outputter/error/error' : 'quickfix',
+				\ 'srcfile' : expand("%"),
+				\ 'cmdopt': '-pdfdvi',
+				\ 'hook/sweep/files' : [
+				\                      '%S:p:r.aux',
+				\                      '%S:p:r.bbl',
+				\                      '%S:p:r.blg',
+				\                      '%S:p:r.dvi',
+				\                      '%S:p:r.fdb_latexmk',
+				\                      '%S:p:r.fls',
+				\                      '%S:p:r.log',
+				\                      '%S:p:r.out',
+				\                      '%S:p:r.synctex.gz'
+				\                      ],
+				\ 'exec': '%c %o %a %s',
+				\}
+	function! s:open_pdf() abort
+		let name = expand("%:r") " exclude extension
+		execute system("open -a Skim.app " . name . ".pdf")
+	endfunction
+	command! PdfOpen call s:open_pdf()
+	autocmd BufWritePost,FileWritePost *.tex QuickRun tex
+	nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+	au FileType qf nnoremap <silent><buffer>q :quit<CR>
 	nnoremap <silent><Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 	" }}}
-	" *** Unite {{{
-	" call dein#add('Shougo/unite.vim')
-	" call dein#add('Shougo/neomru.vim')
-	" call dein#add('ujihisa/unite-colorscheme')
-	" call dein#add('h1mesuke/unite-outline')
-	" }}}
 	" *** Completions {{{
-	" Neosnippet {{{ 
+	" Neosnippet {{{
 	call dein#add('Shougo/neosnippet')
 	call dein#add('Shougo/neosnippet-snippets')
 	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -100,128 +112,52 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" }}}
 	" Syntastic {{{
 	call dein#add('scrooloose/syntastic.git')
-	" set statusline+=%#warningmsg#
-	" set statusline+=%{SyntasticStatuslineFlag()}
-	" set statusline+=%*
-	" let g:syntastic_javascript_checkers = ['jshint']
-	" let g:syntastic_python_checkers = ['flake8']
 	let g:syntastic_enable_signs=1
 	let g:syntastic_auto_loc_list=2
 	let g:syntastic_always_populate_loc_list = 1
 	let g:syntastic_check_on_open = 0
 	let g:syntastic_check_on_wq = 0
-	let g:syntastic_c_compiler_options = '-Wall '
-	let g:syntastic_cpp_compiler_options = '-std=c++14 -Wall -I ~/.platformio/packages/framework-mbed'
+	let g:syntastic_c_compiler_options = '-std=gnu17 -Wall '
+	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
 	" }}}
 	" NeoComplete {{{
-	" call dein#add('Shougo/neocomplete.vim')
-	" let g:neocomplete#enable_force_overwrite_completefunc=1
-	" let g:neocomplete#enable_at_startup = 1
-	" let g:neocomplete#enable_ignore_case = 1
-	" let g:neocomplete#enable_smart_case = 1
-	" let g:neocomplete#enable_auto_select = 1
-	" let g:neocomplete#enable_camel_case_completion = 0
-	" if !exists('g:neocomplete#keyword_patterns')
-	" 	let g:neocomplete#keyword_patterns = {}
-	" endif
-	" let g:neocomplete#keyword_patterns._ = '\h\w*'
+	call dein#add('Shougo/neocomplete.vim')
+	let g:neocomplete#enable_force_overwrite_completefunc=1
+	let g:neocomplete#enable_at_startup = 1
+	let g:neocomplete#enable_ignore_case = 1
+	let g:neocomplete#enable_smart_case = 1
+	let g:neocomplete#enable_auto_select = 1
+	let g:neocomplete#enable_camel_case_completion = 0
+	if !exists('g:neocomplete#keyword_patterns')
+		let g:neocomplete#keyword_patterns = {}
+	endif
+	let g:neocomplete#keyword_patterns._ = '\h\w*'
 	" " <TAB>: completion.
-	" " inoremap <expr><TAB>  pumvisible() ? '<C-n>' : '<TAB>'
+	" inoremap <expr><TAB>  pumvisible() ? '<C-n>' : '<TAB>'
 	" " <BS> でポップアップを閉じて文字を削除
-	" " imap <expr> <BS>
-	" " 			\ neocomplete#smart_close_popup() . '<Plug>(smartinput_BS)'
+	" imap <expr> <BS>
+	" 			\ neocomplete#smart_close_popup() . '<Plug>(smartinput_BS)'
 	" " <C-g> でポップアップを閉じる
 	" inoremap <expr> <C-g> neocomplete#cancel_popup()
-	" " <CR> で候補を選択し改行する
-	" " ポップアップがないときには改行する
-	" " inoremap <expr><CR>   pumvisible() ? "\<C-n>" . neocomplete#close_popup()  : "<CR>"
-	" " imap <expr> <CR> pumvisible() ?
-	" "       \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
-	" imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
+	" <CR> で候補を選択し改行する
+	" ポップアップがないときには改行する
+	inoremap <expr><CR>   pumvisible() ? "\<C-n>" . neocomplete#close_popup()  : "<CR>"
+	" imap <expr> <CR> pumvisible() ?
+	      " \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
+	imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
 	" inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
 	" }}}
-	
 	call dein#add('Shougo/neoinclude.vim')
-	" call dein#add('lervag/vimtex')
-	" call dein#add('justmao945/vim-clang')
-	" let g:clang_auto = 0 " 一番上を選択しない
-	" " vim-clang 用に NeoCompleteをあわせる
-	" if !exists('g:neocomplete#force_omni_input_patterns')
-	" 	let g:neocomplete#force_omni_input_patterns = {} 
-	" endif
-	" let g:neocomplete#force_overwrite_completefunc = 1
-	" let g:neocomplete#force_omni_input_patterns.c =
-	" 			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-	" let g:neocomplete#force_omni_input_patterns.cpp =
-	" 			\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-	" let g:clang_c_completeopt = 'longest,menuone' " disable Scratch buffer
-	" let g:clang_cpp_completeopt = 'longest,menuone'
-	" let g:clang_diagsopt = ''
 	" }}}
 	" *** Operators {{{
-	call dein#add('kana/vim-operator-user')
-	call dein#add('rhysd/vim-operator-surround')
-	vmap sa <Plug>(operator-surround-append)
-	vmap sd <Plug>(operator-surround-delete)
-	vmap sr <Plug>(operator-surround-replace)
 	call dein#add('rhysd/clever-f.vim')
 	call dein#add('tomtom/tcomment_vim')
-	let g:tcommentMapLeader1 = '<C-_>'
-	let g:tcommentGuessFileType_awk = 'sh'
-	let g:tcommentGuessFileType_kue2 = 'sh'
+	let g:tcomment#filetype#guess_awk = 'sh'
+	let g:tcomment#filetype#guess_kue2 = 'sh'
 	" }}}
-
-	" call dein#add('terryma/vim-expand-region')
-	" call dein#add('mattn/benchvimrc-vim')
-	" call dein#add('AndrewRadev/switch.vim')
-	" let g:switch_mapping = "-"
-	" let g:switch_custom_definitions = [
-	" 			\ ['.', '->'],
-	" 			\ ['TRUE', 'FALSE'],
-	" 			\ ['==', '!='],
-	" 			\ ['<', '>', '<=', '>='],
-	" 			\ ]
-	" call dein#add('mhinz/vim-startify')
-	" let g:startify_enable_special         = 1
-	" let g:startify_files_number           = 8
-	" let g:startify_relative_path          = 1
-	" let g:startify_change_to_dir          = 1
-	" let g:startify_update_oldfiles        = 1
-	" let g:startify_session_autoload       = 1
-	" let g:startify_session_persistence    = 1
-	" let g:startify_session_delete_buffers = 1
-	"
-	" let g:startify_custom_header = ['		Vim', '	=============', '	Vi IMproved - ' . v:version ]
-	" let g:startify_skiplist = [
-	" 			\ $HOME . '/.vim/dein/.dein/doc/'
-	" 			\ ]
-	"
-	" let g:startify_bookmarks = [
-	" 			\ { 'p': '~/Programming' },
-	" 			\ { 'v0': '~/.vim/vimrc' },
-	" 			\ { 'v1': '~/.vim/vimrc/1_Basic.vim' },
-	" 			\ { 'v2': '~/.vim/vimrc/2_Keymap.vim' },
-	" 			\ { 'v3': '~/.vim/vimrc/3_dein.vim' },
-	" 			\ { 'z': '~/.zsh.d' },
-	" 			\ { 'Z': '~/.zshrc' },
-	" 			\ ]
-	" hi StartifyBracket ctermfg=240
-	" hi StartifyFile    ctermfg=147
-	" hi StartifyFooter  ctermfg=240
-	" hi StartifyHeader  ctermfg=114
-	" hi StartifyNumber  ctermfg=215
-	" hi StartifyPath    ctermfg=245
-	" hi StartifySlash   ctermfg=240
-	" hi StartifySpecial ctermfg=240
-
+	call dein#add('lervag/vimtex', {'on_ft': 'tex'})
 	call dein#add('Townk/vim-autoclose')
 	call dein#add('kana/vim-smartinput')
-	" vim-easy-align {{{
-	" call dein#add('junegunn/vim-easy-align', {'autoload': { 'commands' : ['EasyAlign'], 'mappings' : ['<Plug>(EasyAlign)'],}})
-	" vmap <Enter> <Plug>(EasyAlign)
-	" nmap <Leader>a <Plug>(EasyAlign)
-	" }}}
-	call dein#add('haya14busa/incsearch.vim')
 	" LightLine {{{
 	call dein#add('itchyny/lightline.vim')
 	let g:lightline = {
@@ -250,33 +186,6 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\ 'separator': {'left': '⮀', 'right': '⮂'},
 				\ 'subseparator': {'left': '⮁', 'right': '⮃'}
 				\ }
-
-	" let g:syntastic_mode_map = { 'mode': 'passive' }
-	" augroup AutoSyntastic
-	" 	autocmd!
-	" 	autocmd BufWritePost *.c,*.cpp,*.hpp,*.cs,*.f90,*.py,*.java,*.js,*.rb,*.cs call s:syntastic()
-	" augroup END
-	" function! s:syntastic()
-	" 	if (stridx(getline(line('.')), 'nosyn') != -1)
-	" 		return
-	" 	endif
-	" 	SyntasticCheck
-	" 	call lightline#update()
-	" endfunction
-	" }}}
-	" Vim-Easymotion {{{
-	call dein#add('Lokaltog/vim-easymotion')
-	" Lokaltog/vim-easymotion
-	" http://blog.remora.cx/2012/08/vim-easymotion.html
-	" ホームポジションに近いキーを使う
-	let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-	" 「;」 + 何かにマッピング
-	let g:EasyMotion_leader_key=';'
-	" 1 ストローク選択を優先する
-	let g:EasyMotion_grouping=1
-	" カラー設定変更
-	hi EasyMotionTarget ctermbg=none ctermfg=red
-	hi EasyMotionShade  ctermbg=none ctermfg=blue
 	" }}}
 	call dein#add('Shougo/vimproc', {'build': 'make'})
 	" RainbowParentheses {{{
@@ -304,50 +213,15 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\ ]
 	let g:rbpt_max = 15
 	" }}}
-	" call dein#add('b4b4r07/vim-shellutils')
-	" Unused and Unclassified {{{
-	" vim-multiple-cursors {{{
-	" call dein#add('terryma/vim-multiple-cursors')
-	" function! Multiple_cursors_before()
-	" 	if exists(':NeoCompleteLock')==2
-	" 		exe 'NeoCompleteLock'
-	" 	endif
-	" endfunction
-    "
-	" function! Multiple_cursors_after()
-	" 	if exists(':NeoCompleteUnlock')==2
-	" 		exe 'NeoCompleteUnlock'
-	" 	endif
-	" endfunction
-	" }}}
-	" call dein#add('Yggdroot/indentLine') " set list listchars によりクビ
-	" let g:indentLine_faster = 1
-	" call dein#add('vimtaku/vim-mlh.git')
-	" call dein#add('TagHighlight')
-	" call dein#add('fuenor/qfixhowm')
-	" call dein#add('YankRing.vim')
-	" call dein#add('basyura/TweetVim')
-	" call dein#add('mattn/webapi-vim')
-	" call dein#add('basyura/twibill.vim')
-	" call dein#add('tyru/open-browser.vim')
-	" call dein#add("osyo-manga/vim-precious")
-	" call dein#add('mattn/sonictemplate-vim')
-	" call dein#add ('leftouterjoin/changed')
-	" }}}
-	" call dein#add('emezeske/manpageview')
-	hi link CTagsFunction None
-	hi link CTagsGlobalVariable None
-	hi link CTagsMember None
 	call dein#end()
 	call dein#save_state()
 endif
 if dein#check_install()
 	call dein#install()
 endif
-" ===========================================
+
 syntax on
 filetype plugin indent on
-" colorscheme solarized
 " カラースキームの色設定 {{{
 " For Solarized
 " 斜体を積極的に使う
@@ -366,8 +240,6 @@ if match(system('echo $TERM_PROGRAM'), 'iTerm.app') != -1
 else
 	colorscheme default
 endif
-" hi SpecialKey ctermbg=NONE ctermfg=10
-" hi SpecialKey ctermbg=8 ctermfg=23
 " }}}
 " SmartInput Functions {{{
 call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')

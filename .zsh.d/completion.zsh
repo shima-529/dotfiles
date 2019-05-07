@@ -18,5 +18,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' ignore-parents parent pwd ..
 # 矢印キーで補完を選択可能に
 zstyle ':completion:*:default' menu select=2
-autoload -U compinit
-compinit -u
+# autoload -U compinit
+# compinit -u
+autoload -Uz compinit
+compinit -C

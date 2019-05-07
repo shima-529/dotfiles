@@ -2,7 +2,7 @@
 alias path='echo $PATH | tr ":" "\n"'
 
 # cd,ls,openコマンド
-function f(){
+function f () {
     if [ "$1" = "" ]; then
         open .
     else
@@ -18,6 +18,9 @@ function cdf () {
         echo 'No Finder window found' >&2
     fi
 }
+alias :q='exit'
+alias :wq='exit'
+alias :make='make'
 alias cd..='\cd ..'
 alias cdd='~/cdd.sh'
 # For FreeBSD ls
@@ -64,10 +67,6 @@ alias ldd="otool -L"
 
 # typo対策
 alias ks='ls'
-
-alias banana="echo '\xf0\x9f\x8d\x8c'"
-alias lemon="banana | sed 's/\x8c/\x8b/'"
-
 
 function vish(){
     vim -es <(cat) "$@" '+%p|q!'
