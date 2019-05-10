@@ -28,7 +28,7 @@ set softtabstop=4
 " }}}
 set cursorline
 set list
-set listchars=tab:»-,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»_,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 " 検索系{{{
 set incsearch
 set ignorecase

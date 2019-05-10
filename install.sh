@@ -54,7 +54,7 @@ for item in ${dir_list[@]};do
     fi
 done
 
-repo=('b4b4r07/enhancd' 'zsh-users/zsh-syntax-highlighting' 'zsh-users/zsh-history-substring-search' 'zsh-users/zaw')
+repo=('zsh-users/zsh-autosuggestions' 'zsh-users/zsh-syntax-highlighting' 'zsh-users/zsh-history-substring-search')
 echo ""
 for item in ${repo[@]}; do
     if [ ! -e ~/.$item ]; then
