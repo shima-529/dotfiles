@@ -30,16 +30,22 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	" }}}
 	" *** Language Environments {{{
 	" 使う(った)言語: sh fortran c cpp python awk
-	call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['c', 'cpp', 'h', 'hpp']})
+	call dein#add('Shougo/unite.vim')
+	call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['c', 'cpp']})
 	let g:cpp_concepts_highlight = 1
+	call dein#add('lervag/vimtex', {'on_ft': 'tex'})
+	call dein#add('qnighy/satysfi.vim', {'on_ft': 'satysfi'})
 	call dein#add('vim-scripts/awk.vim', {'on_ft': 'awk'})
 	call dein#add('vim-scripts/sh.vim', {'on_ft': 'sh'})
 	call dein#add('vim-scripts/vbnet.vim', {'on_ft': 'vbnet'})
+	call dein#add('vim-scripts/a.vim')
+	call dein#add('vim-scripts/gtags.vim')
 	call dein#add('zah/nim.vim', {'on_ft': 'nim'})
 	call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 	call dein#add('ARM9/arm-syntax-vim', {'on_ft': 'arm'})
 	let g:sh_indent_case_labels=1
 	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
+	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 	" call dein#add('hachibeeDI/vim-vbnet', {'on_ft': 'vbnet'})
 	" call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})
 	" call dein#add('eagletmt/neco-ghc', {'on_ft': 'haskell'})
@@ -60,9 +66,12 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\ 'outputter/buffer/split'  : ':botright 8sp',
 				\ 'outputter/buffer/close_on_empty' : 1,
 				\ }
+	let g:quickrun_config.python = {
+				\ 'command' : 'python3',
+				\ }
 	let g:quickrun_config.cpp = {
 				\ 'command' : 'g++',
-				\   'cmdopt': '-std=c++2a -fconcepts',
+				\ 'cmdopt': '-std=c++2a -fconcepts',
 				\ }
 	let g:quickrun_config['tex'] = {
 				\ 'command' : 'latexmk',
@@ -83,6 +92,13 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\                      '%S:p:r.synctex.gz'
 				\                      ],
 				\ 'exec': '%c %o %a %s',
+				\}
+	let g:quickrun_config['satysfi'] = {
+				\ 'command' : 'satysfi',
+				\ 'outputter' : 'error',
+				\ 'outputter/error/success' : 'null',
+				\ 'outputter/error/error' : 'quickfix',
+				\ 'srcfile' : expand("%"),
 				\}
 	function! s:open_pdf() abort
 		let name = expand("%:r") " exclude extension
@@ -119,6 +135,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:syntastic_check_on_wq = 0
 	let g:syntastic_c_compiler_options = '-std=gnu17 -Wall '
 	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
+	let g:syntastic_python_checkers = ['python3']
 	" }}}
 	" NeoComplete {{{
 	call dein#add('Shougo/neocomplete.vim')
@@ -155,11 +172,11 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:tcomment#filetype#guess_awk = 'sh'
 	let g:tcomment#filetype#guess_kue2 = 'sh'
 	" }}}
-	call dein#add('lervag/vimtex', {'on_ft': 'tex'})
 	call dein#add('Townk/vim-autoclose')
 	call dein#add('kana/vim-smartinput')
 	" LightLine {{{
 	call dein#add('itchyny/lightline.vim')
+	set ttimeout ttimeoutlen=30
 	let g:lightline = {
 				\ 'mode_map': {'c': 'NORMAL'},
 				\ 'active': {
@@ -220,8 +237,8 @@ if dein#check_install()
 	call dein#install()
 endif
 
-syntax on
 filetype plugin indent on
+syntax on
 " カラースキームの色設定 {{{
 " For Solarized
 " 斜体を積極的に使う
@@ -233,7 +250,7 @@ autocmd ColorScheme * highlight LineNr ctermbg=none
 if match(system('echo $TERM_PROGRAM'), 'iTerm.app') != -1
 	set termguicolors
 	set background=dark
-	colorscheme solarized8_dark
+	colorscheme solarized8
 	" colorscheme molokai
 	" colorscheme solarized
 	" hi Comment ctermfg=11

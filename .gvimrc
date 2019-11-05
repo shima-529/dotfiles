@@ -1,7 +1,7 @@
 colorscheme molokai
 set background=dark
 "set guifont=Ricty\ Regular\ for\ Powerline:h18
-set guifont=Menlo\ Regular\ for\ Powerline:h15
+set guifont=Monaco\ for\ Powerline:h13
 
 autocmd colorscheme molokai highlight Visual guibg=white
 " カレント行ハイライトON

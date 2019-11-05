@@ -66,3 +66,12 @@ nnoremap <Up>   gk
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+nnoremap <silent><Leader>b :wa \| make<CR>
+nnoremap <silent><Leader>f :wa \| make flash<CR>
+nnoremap <silent><Leader>t :wa \| make term<CR>
+nnoremap <silent><Leader>c :make clean<CR>
+
+" inoremap <C-e> <Esc>$a
+" inoremap <C-a> <Esc>^i
+" noremap <C-e> <Esc>$a
+" noremap <C-a> <Esc>^i

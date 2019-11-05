@@ -46,8 +46,8 @@ function del() {
 
 # その他
 alias fuck='eval $(thefuck $(fc -ln -1))'
-alias vsel='SEL=vim sel ~/.vimrc ~/.vim/vimrc/*.vim'
-alias zsel='SEL=vim sel ~/.zshrc ~/.zsh.d/*.zsh'
+alias vsel='vim $(find $HOME/.vim/vimrc/ -type f -name "*.vim" | sed "\$a"$HOME"/.vimrc" | sort | fzf)'
+alias zsel='vim $(find $HOME/.zsh.d/ -type f -name "*.zsh" -maxdepth 1 | sed "\$a"$HOME"/.zshrc" | fzf)'
 function vpn(){
     if [ "$1" = "on" ];then
         scutil --nc start "$2"

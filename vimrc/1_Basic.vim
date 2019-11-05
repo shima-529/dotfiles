@@ -13,6 +13,7 @@ set encoding=utf-8 " Vim内部でのファイルエンコードを指定
 set fileencodings=utf-8,iso-2022-jp,euc-jp,ucs-2,cp932,sjis " ファイル読み込み時のエンコード判定試行優先順位
 set autoindent " 前行からインデントを引き継ぐ。改行後何もしないで入力を抜けると削除される
 set number " 行数を表示
+" set relativenumber
 set showmatch " カッコを入力時にマッチする部分にカーソルを一瞬移動
 set matchtime=1 " x 0.1 sec だけ移動時間を持つ
 set showcmd " キーバインド操作時のコマンドを画面下部に表示
