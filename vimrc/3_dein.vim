@@ -45,6 +45,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	call dein#add('ARM9/arm-syntax-vim', {'on_ft': 'arm'})
 	let g:sh_indent_case_labels=1
 	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
+	let g:jedi#rename_command="<leader>e"
 	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 	" call dein#add('hachibeeDI/vim-vbnet', {'on_ft': 'vbnet'})
 	" call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})

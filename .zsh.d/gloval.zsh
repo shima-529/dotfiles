@@ -51,3 +51,17 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
+# Vars for compilers
+arm='arm-none-eabi'
+riscv='riscv-unknown-elf'
+mips='mips-elf'
+h8='h8300-elf'
+rl78='rl78-elf'
+m32c='m32c-elf'
+ft32='ft32-elf'
+avr32='avr32-elf'
+avr='avr'
+msp430='msp430-elf'
+rx='rx-elf'
+sh='sh-elf'
+v850='v850-elf'

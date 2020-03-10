@@ -21,7 +21,7 @@ case "$x" in
 esac
 
 file_list=('.vimrc' '.zshrc' '.nanorc' '.gvimrc' '.tmux.conf')
-dir_list=('.vim/vimrc' '.zsh.d' '.vim/mysnippets')
+dir_list=('.vim/vimrc' './.zsh.d' '.vim/mysnippets')
 echo ""
 echo "Checking whether files or directries already exist..."
 
