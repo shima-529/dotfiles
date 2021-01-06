@@ -21,6 +21,7 @@ set title " ファイル情報等をターミナルのタイトルに表示す�
 set foldmethod=marker " マーカーで折りたたみを行う
 set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ .\ v:shell_error " プリンター出力
 set printoptions=number:y
+set completeopt=menuone
 " Tab{{{
 set tabstop=4
 set shiftwidth=4
