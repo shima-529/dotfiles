@@ -28,7 +28,6 @@ noremap! <C-j> <ESC>
 " 行頭／末へのカーソル移動を直感的に
 " noremap 1 0
 " noremap 0 $
-noremap Y y$
 noremap <SPACE> za
 " Split View {{{
 " noremap <silent> ss :split<CR>

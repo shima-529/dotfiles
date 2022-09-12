@@ -71,3 +71,7 @@ alias ks='ls'
 function vish(){
     vim -es <(cat) "$@" '+%p|q!'
 }
+
+function title(){
+	echo -ne "\e]1;" "$@"  "\a"
+}
