@@ -139,33 +139,33 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
 	let g:syntastic_python_checkers = ['python3']
 	" }}}
-	" NeoComplete {{{
-	call dein#add('Shougo/neocomplete.vim')
-	let g:neocomplete#enable_force_overwrite_completefunc=1
-	let g:neocomplete#enable_at_startup = 1
-	let g:neocomplete#enable_ignore_case = 1
-	let g:neocomplete#enable_smart_case = 1
-	let g:neocomplete#enable_auto_select = 1
-	let g:neocomplete#enable_camel_case_completion = 0
-	if !exists('g:neocomplete#keyword_patterns')
-		let g:neocomplete#keyword_patterns = {}
-	endif
-	let g:neocomplete#keyword_patterns._ = '\h\w*'
-	" " <TAB>: completion.
-	" inoremap <expr><TAB>  pumvisible() ? '<C-n>' : '<TAB>'
-	" " <BS> でポップアップを閉じて文字を削除
-	" imap <expr> <BS>
-	" 			\ neocomplete#smart_close_popup() . '<Plug>(smartinput_BS)'
-	" " <C-g> でポップアップを閉じる
-	" inoremap <expr> <C-g> neocomplete#cancel_popup()
-	" <CR> で候補を選択し改行する
-	" ポップアップがないときには改行する
-	inoremap <expr><CR>   pumvisible() ? "\<C-n>" . neocomplete#close_popup()  : "<CR>"
-	" imap <expr> <CR> pumvisible() ?
-	      " \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
-	imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
-	" inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
-	" }}}
+	" " NeoComplete {{{
+	" call dein#add('Shougo/neocomplete.vim')
+	" let g:neocomplete#enable_force_overwrite_completefunc=1
+	" let g:neocomplete#enable_at_startup = 1
+	" let g:neocomplete#enable_ignore_case = 1
+	" let g:neocomplete#enable_smart_case = 1
+	" let g:neocomplete#enable_auto_select = 1
+	" let g:neocomplete#enable_camel_case_completion = 0
+	" if !exists('g:neocomplete#keyword_patterns')
+	" 	let g:neocomplete#keyword_patterns = {}
+	" endif
+	" let g:neocomplete#keyword_patterns._ = '\h\w*'
+	" " " <TAB>: completion.
+	" " inoremap <expr><TAB>  pumvisible() ? '<C-n>' : '<TAB>'
+	" " " <BS> でポップアップを閉じて文字を削除
+	" " imap <expr> <BS>
+	" " 			\ neocomplete#smart_close_popup() . '<Plug>(smartinput_BS)'
+	" " " <C-g> でポップアップを閉じる
+	" " inoremap <expr> <C-g> neocomplete#cancel_popup()
+	" " <CR> で候補を選択し改行する
+	" " ポップアップがないときには改行する
+	" inoremap <expr><CR>   pumvisible() ? "\<C-n>" . neocomplete#close_popup()  : "<CR>"
+	" " imap <expr> <CR> pumvisible() ?
+	"       " \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
+	" imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
+	" " inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
+	" " }}}
 	call dein#add('Shougo/neoinclude.vim')
 	" }}}
 	" *** Operators {{{
