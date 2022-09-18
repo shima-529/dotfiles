@@ -22,40 +22,36 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	call dein#add('Shougo/dein.vim')
 	" }}}
 	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
-	call dein#add('haya14busa/incsearch.vim')
 	" *** Color Schemes {{{
-	call dein#add('altercation/vim-colors-solarized')
+	" call dein#add('altercation/vim-colors-solarized')
 	call dein#add('lifepillar/vim-solarized8')
 	call dein#add('tomasr/molokai')
 	" }}}
 	" *** Language Environments {{{
-	" 使う(った)言語: sh fortran c cpp python awk
-	call dein#add('Shougo/unite.vim')
 	call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['c', 'cpp']})
-	let g:cpp_concepts_highlight = 1
+	let g:cpp_concepts_highlight = 1 " concept を色付け
+	let g:cpp_class_scope_highlight = 1 " よくわからん
+	let g:cpp_member_variable_highlight = 1 " メンバ変数へのアクセスに色を付ける
+	let g:cpp_class_decl_highlight = 1 " クラス定義時、名前に色を付ける
+	let g:cpp_posix_standard = 1 " stdとかprintfとかのキーワードの色を変える
+
 	call dein#add('lervag/vimtex', {'on_ft': 'tex'})
 	call dein#add('qnighy/satysfi.vim', {'on_ft': 'satysfi'})
 	call dein#add('vim-scripts/awk.vim', {'on_ft': 'awk'})
 	call dein#add('vim-scripts/sh.vim', {'on_ft': 'sh'})
+	let g:sh_indent_case_labels=1
 	call dein#add('vim-scripts/vbnet.vim', {'on_ft': 'vbnet'})
-	call dein#add('vim-scripts/a.vim')
-	call dein#add('vim-scripts/gtags.vim')
+	" call dein#add('vim-scripts/gtags.vim')
 	call dein#add('zah/nim.vim', {'on_ft': 'nim'})
 	call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 	call dein#add('ARM9/arm-syntax-vim', {'on_ft': 'arm'})
-	let g:sh_indent_case_labels=1
 	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
-	let g:jedi#rename_command="<leader>e"
 	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 	call dein#add('zenlang/zen.vim', {'on_ft': 'zen'})
-	" call dein#add('hachibeeDI/vim-vbnet', {'on_ft': 'vbnet'})
-	" call dein#add('travitch/hasksyn', {'on_ft': 'haskell'})
-	" call dein#add('eagletmt/neco-ghc', {'on_ft': 'haskell'})
-	" call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
-	" noremap <silent> <Leader>tt :GhcModType<CR>
-	" noremap <silent> <Leader>t :GhcModTypeClear<CR>
-	" call dein#add('OmniSharp/omnisharp-vim', {'on_ft': 'cs'})
+	call dein#add('OmniSharp/omnisharp-vim', {'on_ft': 'cs'})
 	" }}}
+	call dein#add('vim-scripts/a.vim')
+	call dein#add('Shougo/unite.vim')
 	" vim-quickrun {{{
 	call dein#add('thinca/vim-quickrun')
 	let g:quickrun_config = get(g:, 'quickrun_config', {})
@@ -73,7 +69,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\ }
 	let g:quickrun_config.cpp = {
 				\ 'command' : 'g++',
-				\ 'cmdopt': '-std=c++2a -fconcepts',
+				\ 'cmdopt': '-std=c++20 -fconcepts',
 				\ }
 	let g:quickrun_config['tex'] = {
 				\ 'command' : 'latexmk',
@@ -104,7 +100,7 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 				\}
 	function! s:open_pdf() abort
 		let name = expand("%:r") " exclude extension
-		execute system("open -a Skim.app " . name . ".pdf")
+		execute system("open " . name . ".pdf")
 	endfunction
 	command! PdfOpen call s:open_pdf()
 	autocmd BufWritePost,FileWritePost *.tex QuickRun tex
@@ -139,8 +135,12 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
 	let g:syntastic_python_checkers = ['python3']
 	" }}}
-	" " NeoComplete {{{
-	" call dein#add('Shougo/neocomplete.vim')
+	" " ddc {{{
+	" call dein#add('Shougo/ddc.vim') " ddc.vim itself
+	" call dein#add('Shougo/pum.vim') " popup window
+	" call dein#add('Shougo/ddc-around') " complete words around the cursor
+	" call dein#add('Shougo/ddc-file') " complete file names
+    "
 	" let g:neocomplete#enable_force_overwrite_completefunc=1
 	" let g:neocomplete#enable_at_startup = 1
 	" let g:neocomplete#enable_ignore_case = 1
@@ -165,8 +165,8 @@ if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
 	"       " \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
 	" imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
 	" " inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
-	" " }}}
-	call dein#add('Shougo/neoinclude.vim')
+	" " " }}}
+	" call dein#add('Shougo/neoinclude.vim')
 	" }}}
 	" *** Operators {{{
 	call dein#add('rhysd/clever-f.vim')

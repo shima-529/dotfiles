@@ -57,3 +57,6 @@ export FZF_DEFAULT_OPTS='
 '
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# opam configuration
+[[ ! -r /home/yuki/.opam/opam-init/init.zsh ]] || source /home/yuki/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
