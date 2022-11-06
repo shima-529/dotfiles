@@ -1,4 +1,3 @@
-" call dein#addの呼び出し、環境設定 {{{
 let s:vimdir = $HOME . "/.vim"
 if has("vim_starting")
 	if ! isdirectory(s:vimdir)
@@ -17,221 +16,29 @@ if !isdirectory(s:dein_repo_dir)
 	call system("git clone " . s:dein_repo . " " . s:dein_repo_dir)
 endif
 let &runtimepath = &runtimepath . ',' . s:dein_repo_dir
-if dein#load_state(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
-	call dein#begin(s:dein_dir, expand('$HOME/.vim/vimrc/3_dein.vim'))
-	call dein#add('Shougo/dein.vim')
-	" }}}
-	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
-	" *** Color Schemes {{{
-	" call dein#add('altercation/vim-colors-solarized')
-	call dein#add('lifepillar/vim-solarized8')
-	call dein#add('tomasr/molokai')
-	" }}}
-	" *** Language Environments {{{
-	call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['c', 'cpp']})
-	let g:cpp_concepts_highlight = 1 " concept を色付け
-	let g:cpp_class_scope_highlight = 1 " よくわからん
-	let g:cpp_member_variable_highlight = 1 " メンバ変数へのアクセスに色を付ける
-	let g:cpp_class_decl_highlight = 1 " クラス定義時、名前に色を付ける
-	let g:cpp_posix_standard = 1 " stdとかprintfとかのキーワードの色を変える
 
-	call dein#add('lervag/vimtex', {'on_ft': 'tex'})
-	call dein#add('qnighy/satysfi.vim', {'on_ft': 'satysfi'})
-	call dein#add('vim-scripts/awk.vim', {'on_ft': 'awk'})
-	call dein#add('vim-scripts/sh.vim', {'on_ft': 'sh'})
-	let g:sh_indent_case_labels=1
-	call dein#add('vim-scripts/vbnet.vim', {'on_ft': 'vbnet'})
-	" call dein#add('vim-scripts/gtags.vim')
-	call dein#add('zah/nim.vim', {'on_ft': 'nim'})
-	call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
-	call dein#add('ARM9/arm-syntax-vim', {'on_ft': 'arm'})
-	call dein#add('kballard/vim-swift', {'on_ft': 'swift'})
-	call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
-	call dein#add('zenlang/zen.vim', {'on_ft': 'zen'})
-	call dein#add('OmniSharp/omnisharp-vim', {'on_ft': 'cs'})
-	" }}}
-	call dein#add('vim-scripts/a.vim')
-	call dein#add('Shougo/unite.vim')
-	" vim-quickrun {{{
-	call dein#add('thinca/vim-quickrun')
-	let g:quickrun_config = get(g:, 'quickrun_config', {})
-	let g:quickrun_config._ = {
-				\ 'runner'    : 'vimproc',
-				\ 'runner/vimproc/updatetime' : 60,
-				\ 'outputter' : 'error',
-				\ 'outputter/error/success' : 'buffer',
-				\ 'outputter/error/error' : 'buffer',
-				\ 'outputter/buffer/split'  : ':botright 8sp',
-				\ 'outputter/buffer/close_on_empty' : 1,
-				\ }
-	let g:quickrun_config.python = {
-				\ 'command' : 'python3',
-				\ }
-	let g:quickrun_config.cpp = {
-				\ 'command' : 'g++',
-				\ 'cmdopt': '-std=c++20 -fconcepts',
-				\ }
-	let g:quickrun_config['tex'] = {
-				\ 'command' : 'latexmk',
-				\ 'outputter' : 'error',
-				\ 'outputter/error/success' : 'null',
-				\ 'outputter/error/error' : 'quickfix',
-				\ 'srcfile' : expand("%"),
-				\ 'cmdopt': '-pdfdvi',
-				\ 'hook/sweep/files' : [
-				\                      '%S:p:r.aux',
-				\                      '%S:p:r.bbl',
-				\                      '%S:p:r.blg',
-				\                      '%S:p:r.dvi',
-				\                      '%S:p:r.fdb_latexmk',
-				\                      '%S:p:r.fls',
-				\                      '%S:p:r.log',
-				\                      '%S:p:r.out',
-				\                      '%S:p:r.synctex.gz'
-				\                      ],
-				\ 'exec': '%c %o %a %s',
-				\}
-	let g:quickrun_config['satysfi'] = {
-				\ 'command' : 'satysfi',
-				\ 'outputter' : 'error',
-				\ 'outputter/error/success' : 'null',
-				\ 'outputter/error/error' : 'quickfix',
-				\ 'srcfile' : expand("%"),
-				\}
-	function! s:open_pdf() abort
-		let name = expand("%:r") " exclude extension
-		execute system("open " . name . ".pdf")
-	endfunction
-	command! PdfOpen call s:open_pdf()
-	autocmd BufWritePost,FileWritePost *.tex QuickRun tex
-	nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-	au FileType qf nnoremap <silent><buffer>q :quit<CR>
-	nnoremap <silent><Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
-	" }}}
-	" *** Completions {{{
-	" Neosnippet {{{
-	call dein#add('Shougo/neosnippet')
-	call dein#add('Shougo/neosnippet-snippets')
-	imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	xmap <C-k>     <Plug>(neosnippet_expand_target)
-	let g:neosnippet#snippets_directory='~/.vim/mysnippets/'
-	let g:neosnippet#disable_runtime_snippets={
-				\ '_':       1,
-				\ 'c':       1,
-				\ 'cpp':     1,
-				\ 'fortran': 1,
-				\ 'java':    1,
-				\ }
-	" }}}
-	" Syntastic {{{
-	call dein#add('scrooloose/syntastic.git')
-	let g:syntastic_enable_signs=1
-	let g:syntastic_auto_loc_list=2
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_check_on_open = 0
-	let g:syntastic_check_on_wq = 0
-	let g:syntastic_c_compiler_options = '-std=gnu17 -Wall '
-	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
-	let g:syntastic_python_checkers = ['python3']
-	" }}}
-	" " ddc {{{
-	" call dein#add('Shougo/ddc.vim') " ddc.vim itself
-	" call dein#add('Shougo/pum.vim') " popup window
-	" call dein#add('Shougo/ddc-around') " complete words around the cursor
-	" call dein#add('Shougo/ddc-file') " complete file names
-    "
-	" let g:neocomplete#enable_force_overwrite_completefunc=1
-	" let g:neocomplete#enable_at_startup = 1
-	" let g:neocomplete#enable_ignore_case = 1
-	" let g:neocomplete#enable_smart_case = 1
-	" let g:neocomplete#enable_auto_select = 1
-	" let g:neocomplete#enable_camel_case_completion = 0
-	" if !exists('g:neocomplete#keyword_patterns')
-	" 	let g:neocomplete#keyword_patterns = {}
-	" endif
-	" let g:neocomplete#keyword_patterns._ = '\h\w*'
-	" " " <TAB>: completion.
-	" " inoremap <expr><TAB>  pumvisible() ? '<C-n>' : '<TAB>'
-	" " " <BS> でポップアップを閉じて文字を削除
-	" " imap <expr> <BS>
-	" " 			\ neocomplete#smart_close_popup() . '<Plug>(smartinput_BS)'
-	" " " <C-g> でポップアップを閉じる
-	" " inoremap <expr> <C-g> neocomplete#cancel_popup()
-	" " <CR> で候補を選択し改行する
-	" " ポップアップがないときには改行する
-	" inoremap <expr><CR>   pumvisible() ? "\<C-n>" . neocomplete#close_popup()  : "<CR>"
-	" " imap <expr> <CR> pumvisible() ?
-	"       " \ neocomplete#smart_close_popup() : '<Plug>(smartinput_CR)'
-	" imap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<Plug>(smartinput_CR)'
-	" " inoremap <expr> <CR> pumvisible() ? '<C-n><C-p><C-y><C-k>' : '<CR>'
-	" " " }}}
-	" call dein#add('Shougo/neoinclude.vim')
-	" }}}
-	" *** Operators {{{
-	call dein#add('rhysd/clever-f.vim')
-	call dein#add('tomtom/tcomment_vim')
-	let g:tcomment#filetype#guess_awk = 'sh'
-	let g:tcomment#filetype#guess_kue2 = 'sh'
-	" }}}
-	call dein#add('Townk/vim-autoclose')
-	call dein#add('kana/vim-smartinput')
-	" LightLine {{{
-	call dein#add('itchyny/lightline.vim')
-	set ttimeout ttimeoutlen=30
-	let g:lightline = {
-				\ 'mode_map': {'c': 'NORMAL'},
-				\ 'active': {
-				\   'left': [
-				\     ['mode', 'paste'],
-				\     ['readonly', 'filename', 'modified'],
-				\   ],
-				\   'right': [
-				\     ['lineinfo', 'syntastic'],
-				\     ['percent'],
-				\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-				\   ],
-				\ },
-				\ 'component': {
-				\   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-				\   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-				\ },
-				\ 'component_expand': {
-				\   'syntastic': 'SyntasticStatuslineFlag'
-				\ },
-				\ 'component_type': {
-				\   'syntastic': 'error'
-				\ },
-				\ 'separator': {'left': '⮀', 'right': '⮂'},
-				\ 'subseparator': {'left': '⮁', 'right': '⮃'}
-				\ }
-	" }}}
-	call dein#add('Shougo/vimproc', {'build': 'make'})
-	" RainbowParentheses {{{
-	call dein#add('kien/rainbow_parentheses.vim')
-	au BufEnter * RainbowParenthesesActivate
-	au BufEnter * RainbowParenthesesLoadRound
-	au BufEnter * RainbowParenthesesLoadSquare
-	au BufEnter * RainbowParenthesesLoadBraces
-	let g:rbpt_colorpairs = [
-				\ ['brown',       'RoyalBlue3'],
-				\ ['Darkblue',    'SeaGreen3'],
-				\ ['darkgray',    'DarkOrchid3'],
-				\ ['darkgreen',   'firebrick3'],
-				\ ['darkcyan',    'RoyalBlue3'],
-				\ ['darkred',     'SeaGreen3'],
-				\ ['darkmagenta', 'DarkOrchid3'],
-				\ ['brown',       'firebrick3'],
-				\ ['gray',        'RoyalBlue3'],
-				\ ['darkmagenta', 'DarkOrchid3'],
-				\ ['Darkblue',    'firebrick3'],
-				\ ['darkgreen',   'RoyalBlue3'],
-				\ ['darkcyan',    'SeaGreen3'],
-				\ ['darkred',     'DarkOrchid3'],
-				\ ['red',         'firebrick3'],
-				\ ]
-	let g:rbpt_max = 15
-	" }}}
+" TOML settings
+let s:dein_toml_dir = s:vimdir . '/dein_toml'
+let s:dein_toml_file = s:dein_toml_dir . '/dein.toml'
+let s:dein_lazy_toml_file = s:dein_toml_dir . '/dein_lazy.toml'
+if has("vim_starting")
+	if ! isdirectory(s:dein_toml_dir)
+		call system("mkdir " . s:dein_toml_dir)
+	endif
+	if ! isdirectory(s:dein_toml_file)
+		call system("touch " . s:dein_toml_file)
+	endif
+	if ! isdirectory(s:dein_lazy_toml_file)
+		call system("touch " . s:dein_lazy_toml_file)
+	endif
+endif
+
+if dein#load_state(s:dein_dir)
+	call dein#begin(s:dein_dir)
+
+	call dein#load_toml(s:dein_toml_file, {'lazy': 0})
+	call dein#load_toml(s:dein_lazy_toml_file, {'lazy': 1})
+
 	call dein#end()
 	call dein#save_state()
 endif
@@ -241,38 +48,7 @@ endif
 
 filetype plugin indent on
 syntax on
-" カラースキームの色設定 {{{
-" For Solarized
-" 斜体を積極的に使う
-" let g:solarized_term_italics = 1
-" Solarized Light
-set term=xterm-256color
+" カラースキームの色設定
+" Solarized
 autocmd ColorScheme * highlight Normal ctermbg=none
 autocmd ColorScheme * highlight LineNr ctermbg=none
-if match(system('echo $TERM_PROGRAM'), 'iTerm.app') != -1
-	set termguicolors
-	set background=dark
-	colorscheme solarized8
-	" colorscheme molokai
-	" colorscheme solarized
-	" hi Comment ctermfg=11
-else
-	colorscheme default
-endif
-" }}}
-" SmartInput Functions {{{
-call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
-call smartinput#define_rule({
-			\   'at'    : '(\%#)',
-			\   'char'  : '<Space>',
-			\   'input' : '<Space><Space><Left>',
-			\   })
-call smartinput#define_rule({
-			\   'at'    : '( \%# )',
-			\   'char'  : '<BS>',
-			\   'input' : '<Del><BS>',
-			\   })
-call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
-			\                        '<Enter>',
-			\                        '<Enter>')
-" }}}

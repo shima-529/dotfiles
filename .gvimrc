@@ -1,11 +1,11 @@
-colorscheme molokai
+colorscheme solarized8
 set background=dark
-"set guifont=Ricty\ Regular\ for\ Powerline:h18
-set guifont=Monaco\ for\ Powerline:h13
+set guifont=Monaco\ for\ Powerline\ 9
 
-autocmd colorscheme molokai highlight Visual guibg=white
-" カレント行ハイライトON
-set cursorline
-" アンダーラインを引く(gui)
-" highlight CursorLine gui=NONE guifg=NONE guibg=gray
+set columns=96
+set lines=26
+" メニューバーとスクロールバーを非表示に
+set guioptions-=m
+set guioptions-=T
+
 runtime! $HOME/.vimrc
