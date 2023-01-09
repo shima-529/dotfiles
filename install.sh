@@ -35,8 +35,8 @@ esac
 
 
 # Creating Symlinks to Setting Files
-src_list=( .vimrc .gvimrc .nanorc .zshenv .zshrc .tmux.conf picom.conf     vimrc       .zsh.d )
-dst_list=( $HOME  $HOME   $HOME   $HOME   $HOME  $HOME      $HOME/.config/ $HOME/.vim/ $HOME  )
+src_list=( .vimrc .gvimrc .nanorc .zshenv .zshrc .tmux.conf picom.conf     vimrc       dein_toml  .zsh.d )
+dst_list=( $HOME  $HOME   $HOME   $HOME   $HOME  $HOME      $HOME/.config/ $HOME/.vim/ $HOME/.vim $HOME  )
 list_num=${#src_list[@]}
 echo
 

@@ -1,0 +1,71 @@
+[[plugins]]
+repo = 'octol/vim-cpp-enhanced-highlight'
+on_ft = ['c', 'cpp']
+hook_add = '''
+	let g:cpp_concepts_highlight = 1 " concept を色付け
+	let g:cpp_class_scope_highlight = 1 " よくわからん
+	let g:cpp_member_variable_highlight = 1 " メンバ変数へのアクセスに色を付ける
+	let g:cpp_class_decl_highlight = 1 " クラス定義時、名前に色を付ける
+	let g:cpp_posix_standard = 1 " stdとかprintfとかのキーワードの色を変える
+'''
+
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = ['tex']
+hook_add = '''
+	autocmd BufWritePost,FileWritePost *.tex QuickRun tex
+	nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+	au FileType qf nnoremap <silent><buffer>q :quit<CR>
+	nnoremap <silent><Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
+'''
+
+[[plugins]]
+repo = 'qnighy/satysfi.vim'
+on_ft = ['satysfi']
+
+[[plugins]]
+repo = 'vim-scripts/awk.vim'
+on_ft = ['awk']
+
+[[plugins]]
+repo = 'vim-scripts/sh.vim'
+on_ft = ['sh']
+hook_add = '''
+	let g:sh_indent_case_labels=1
+'''
+
+[[plugins]]
+repo = 'vim-scripts/vbnet.vim'
+on_ft = ['vbnet']
+
+[[plugins]]
+repo = 'zah/nim.vim'
+on_ft = ['nim']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'ARM9/arm-syntax-vim'
+on_ft = ['arm']
+
+[[plugins]]
+repo = 'kballard/vim-swift'
+on_ft = ['swift']
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python']
+hook_add = '''
+	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
+'''
+
+[[plugins]]
+repo = 'zenlang/zen.vim'
+on_ft = ['zen']
+
+[[plugins]]
+repo = 'OmniSharp/omnisharp-vim'
+on_ft = ['cs']
+
