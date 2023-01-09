@@ -34,4 +34,7 @@ export GTK_PATH=/usr/local/lib/gtk-2.0
 export IDF_PATH="$HOME/Dropbox/esp32/esp-idf"
 export PICO_SDK_PATH="$HOME/Dropbox/Micom_Projs/RPPico_projs/pico-sdk"
 export PATH="$IDF_PATH/tools:$PATH"
-export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+
+if [ "$(uname)" = "Darwin" ]; then
+	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+fi
