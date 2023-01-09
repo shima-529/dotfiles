@@ -41,3 +41,5 @@ fi
 
 # typo対策
 alias ks='ls'
+
+alias grub-emu='grub-emu; reset'

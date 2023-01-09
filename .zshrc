@@ -13,14 +13,13 @@ SAVEHIST=10000
 setopt histignorealldups
 setopt share_history        # share command history data
 
-# function subsh(){
-# 	eval "__precmd_for_subsh() { print -z '$* ' }"
-# 	autoload -Uz add-zsh-hook
-# 	add-zsh-hook precmd "__precmd_for_subsh"
-# }
 # コマンドtypo時
 function command_not_found_handler() {
-  echo "Not found such a fuckin' command '$1' 💢💢💢"
+	if [ -x /usr/lib/command-not-found ]; then
+		/usr/lib/command-not-found --no-failure-msg -- "$1"
+	else
+		echo "Not found such a fuckin' command '$1' 💢💢💢"
+	fi
 }
 
 source "$HOME/.zsh.d/gloval.zsh"
