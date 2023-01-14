@@ -15,10 +15,14 @@ setopt share_history        # share command history data
 
 # コマンドtypo時
 function command_not_found_handler() {
+	msg_default="Not found such a fuckin' command '$1' 💢💢💢"
+
 	if [ -x /usr/lib/command-not-found ]; then
-		/usr/lib/command-not-found --no-failure-msg -- "$1"
+		msg=$(/usr/lib/command-not-found --no-failure-msg -- "$1" 2>&1)
+		if [ "$msg" != "" ]; then echo "$msg" >&2
+		else                      echo "$msg_default" >&2; fi
 	else
-		echo "Not found such a fuckin' command '$1' 💢💢💢"
+		echo "$msg_default" >&2
 	fi
 }
 
