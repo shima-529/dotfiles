@@ -8,5 +8,14 @@
 
 Currently used settings in my Mac & Linux Mint
 
+# How to install
+Execute `install.sh`. Symlinks will be created.
+
+```bash
+$ ./install.sh
+````
+
+If there exists the same filename on this repo, that symlink is not created.
+
 # Attention
 You may need to modify some lines to adjust the configurations to your environment.

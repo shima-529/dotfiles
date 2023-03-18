@@ -1,6 +1,6 @@
 #! /bin/bash
 cmd_exist() {
-	if which "$1" 2>&1 >/dev/null ; then
+	if which "$1" >/dev/null 2>&1 ; then
 		return 0
 	else
 		return 1
@@ -26,35 +26,41 @@ echo   " This script will make symlinks to $HOME"
 printf " Are you sure to continue? [Y/n] "
 read -r x
 case "$x" in
-    "" | "Y" | "y" | "yes" | "Yes" )
+    "" | "Y" | "y" | "yes" | "Yes" | "YES" )
         true
-        cd "$(dirname $0)";;
+        cd "$(dirname "$0")";;
     * )
         exit 1;;
 esac
 
 
 # Creating Symlinks to Setting Files
-src_list=( .vimrc .gvimrc .nanorc .zshenv .zshrc .tmux.conf picom.conf     vimrc       dein_toml  .zsh.d )
-dst_list=( $HOME  $HOME   $HOME   $HOME   $HOME  $HOME      $HOME/.config/ $HOME/.vim/ $HOME/.vim $HOME  )
-list_num=${#src_list[@]}
+srcs=(); dsts=()
+srcs+=(vimrc);           dsts+=("$HOME/.vimrc")
+srcs+=(gvimrc);          dsts+=("$HOME/.gvimrc")
+srcs+=(nanorc);          dsts+=("$HOME/.nanorc")
+srcs+=(zshenv);          dsts+=("$HOME/.zshenv")
+srcs+=(zshrc);           dsts+=("$HOME/.zshrc")
+srcs+=(tmux.conf);       dsts+=("$HOME/.tmux.conf")
+srcs+=(picom.conf);      dsts+=("$HOME/.config/picom.conf")
+srcs+=(vim:vimrc);       dsts+=("$HOME/.vim/vimrc")
+srcs+=(vim:dein_toml);   dsts+=("$HOME/.vim/dein_toml")
+srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets")
+srcs+=(zsh.d);           dsts+=("$HOME/.zsh.d")
+
+list_num=${#srcs[@]}
 echo
 
 echo "- Configuration File Symlinks"
-for i in $( seq 0 $(($list_num - 1)) ) ; do
-	src=${src_list[$i]}
-	dst=${dst_list[$i]}
+for i in $( seq 0 $((list_num - 1)) ) ; do
+	src=${srcs[$i]}
+	dst=${dsts[$i]}
 
-	if [ ! -d $dst ] ; then
-		mkdir -p $dst
+	if [ ! -d "$(dirname "$dst")" ] ; then
+		mkdir -p "$(dirname $dst)"
 	fi
 
-	ln -s $PWD/$src $dst 2>/dev/null
-	if [ "$?" = "0" ]; then
-		echo " $src: symlink created."
-	else
-		echo " $src: symlink NOT created."
-	fi
+	ln -s "$PWD/$src" "$dst"
 done
 
 
@@ -66,17 +72,17 @@ dest_base=$HOME/.zshplugin
 echo
 
 echo "- Cloning Zsh Plugins"
-if [ ! -d $dest_base ] ; then
-	mkdir $dest_base
+if [ ! -d "$dest_base" ] ; then
+	mkdir "$dest_base"
 fi
-for i in $( seq 0 $(($repo_num - 1)) ) ; do
+for i in $( seq 0 $((repo_num - 1)) ) ; do
 	repo=${repo_list[$i]}
 	user=${user_list[$i]}
-	if [ ! -d $dest_base/$user ] ; then
-		mkdir $dest_base/$user
+	if [ ! -d "$dest_base/$user" ] ; then
+		mkdir "$dest_base/$user"
 	fi
 
-	git clone https://github.com/$user/$repo $dest_base/$user/$repo 2>/dev/null
+	git clone "https://github.com/$user/$repo" "$dest_base/$user/$repo" 2>/dev/null
 	if [ "$?" = "0" ]; then
 		echo " $user/$repo cloned."
 	fi
