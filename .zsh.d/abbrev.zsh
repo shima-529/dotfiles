@@ -1,13 +1,6 @@
 setopt extended_glob
 typeset -A abbreviations
-abbreviations=(
-    "gs"   "git status"
-    "ga"   "git add"
-    "gc"   "git commit -m"
-    "gps"  "git push"
-    "gp"   "git pull"
-    "ori"  "origin"
-    "mas"  "master"
+abbreviations+=(
     "bi"   "brew install"
     "bif"  "brew info"
     "bd"   "brew update"

@@ -17,6 +17,7 @@ fi
 export WORDCHARS=$(echo $WORDCHARS | tr -d "/=")
 export EDITOR="vim"
 export KEYTIMEOUT=1 # for vi mode in zsh
+export LESS='-g -i -M -R -W -z-4 -x4'
 
 
 # Path & Environment
@@ -39,8 +40,8 @@ if [ "$(uname)" = "Darwin" ]; then
 	export PATH="$PATH:/bin"
 	export PATH="$PATH:$HOME/.local/bin"
 	export PATH="$PATH:$HOME/usr/m-cli"
-	export PATH="/Users/yuki/.nodebrew/current/bin/:$PATH"
-	export PATH="/Users/yuki/zen/:$PATH"
+	export PATH="$HOME/.nodebrew/current/bin/:$PATH"
+	export PATH="$HOME/zen/:$PATH"
 	export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 	export PATH="$PATH:/usr/local/cross/bin"
@@ -50,8 +51,6 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 
-# Others
-export LESS='-g -i -M -R -W -z-4 -x4'
 if [ "$(uname)" = "Darwin" ]; then
 	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
 fi
