@@ -9,18 +9,22 @@ cmd_exist() {
 
 
 # Command Existence Check
-if ! cmd_exist figlet; then
-	echo 'command "figlet" not found.'
-	exit 1
-fi
-if ! cmd_exist git; then
-	echo 'command "git" not found.'
-	exit 1
-fi
-
+cmds_required=()
+cmds_required+=("git")
+for key in "${cmds_required[@]}"; do
+	if ! cmd_exist "$key"; then
+		echo "command \"$key\" not found."
+		exit 1
+	fi
+done
 
 # Title Screen & Prompt
-figlet "dotfiles.git"
+echo '     _       _    __ _ _                  _ _   '
+echo '  __| | ___ | |_ / _(_) | ___  ___   __ _(_) |_ '
+echo ' / _` |/ _ \| __| |_| | |/ _ \/ __| / _` | | __|'
+echo '| (_| | (_) | |_|  _| | |  __/\__ \| (_| | | |_ '
+echo ' \__,_|\___/ \__|_| |_|_|\___||___(_)__, |_|\__|'
+echo '                                    |___/       '
 echo
 echo   " This script will make symlinks to $HOME"
 printf " Are you sure to continue? [Y/n] "
@@ -35,7 +39,7 @@ esac
 
 
 # Creating Symlinks to Setting Files
-srcs=(); dsts=()
+srcs=();                 dsts=()
 srcs+=(vimrc);           dsts+=("$HOME/.vimrc")
 srcs+=(gvimrc);          dsts+=("$HOME/.gvimrc")
 srcs+=(nanorc);          dsts+=("$HOME/.nanorc")
