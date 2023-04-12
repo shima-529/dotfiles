@@ -45,12 +45,14 @@ srcs+=(gvimrc);          dsts+=("$HOME/.gvimrc")
 srcs+=(nanorc);          dsts+=("$HOME/.nanorc")
 srcs+=(zshenv);          dsts+=("$HOME/.zshenv")
 srcs+=(zshrc);           dsts+=("$HOME/.zshrc")
+srcs+=(fbtermrc);        dsts+=("$HOME/.fbtermrc")
 srcs+=(tmux.conf);       dsts+=("$HOME/.tmux.conf")
 srcs+=(picom.conf);      dsts+=("$HOME/.config/picom.conf")
 srcs+=(vim:vimrc);       dsts+=("$HOME/.vim/vimrc")
 srcs+=(vim:dein_toml);   dsts+=("$HOME/.vim/dein_toml")
 srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets")
-srcs+=(zsh.d);           dsts+=("$HOME/.zsh.d")
+srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets")
+srcs+=(fbterm.d);        dsts+=("$HOME/.fbterm.d")
 
 list_num=${#srcs[@]}
 echo
