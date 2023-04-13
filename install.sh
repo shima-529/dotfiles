@@ -46,6 +46,7 @@ srcs+=(nanorc);          dsts+=("$HOME/.nanorc")
 srcs+=(zshenv);          dsts+=("$HOME/.zshenv")
 srcs+=(zshrc);           dsts+=("$HOME/.zshrc")
 srcs+=(fbtermrc);        dsts+=("$HOME/.fbtermrc")
+srcs+=(uim);             dsts+=("$HOME/.uim")
 srcs+=(tmux.conf);       dsts+=("$HOME/.tmux.conf")
 srcs+=(picom.conf);      dsts+=("$HOME/.config/picom.conf")
 srcs+=(vim:vimrc);       dsts+=("$HOME/.vim/vimrc")
@@ -66,7 +67,7 @@ for i in $( seq 0 $((list_num - 1)) ) ; do
 		mkdir -p "$(dirname $dst)"
 	fi
 
-	ln -s "$PWD/$src" "$dst"
+	ln -sT "$PWD/$src" "$dst"
 done
 
 
