@@ -1,0 +1,13 @@
+;; デフォルトの IME を Anthy に
+(define default-im-name 'anthy)
+(require-module "anthy")
+;; IME 切り替えは [Ctrl]+[Space]
+(define-key generic-on-key? '("<Control> "))
+(define-key generic-off-key? '("<Control> "))
+;; Vi 協調モード
+(define anthy-use-with-vi? #t)
+(define-key anthy-vi-escape-key? '("escape" "["))
+;; スペース入力はいつでも半角
+(require "japanese.scm")
+(define ja-space '(" " " " " "))
+(define ja-alnum-space '(" " " "))
