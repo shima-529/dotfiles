@@ -43,3 +43,8 @@ fi
 alias ks='ls'
 
 alias grub-emu='grub-emu; reset'
+
+if [ "$(uname)" = "Linux" ]; then
+	alias pbcopy='xsel --clipboard --input'
+	alias pbpaste='xsel --clipboard --output'
+fi
