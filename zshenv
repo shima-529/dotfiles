@@ -27,8 +27,9 @@ export PATH="${PATH}:${GOBIN}"
 
 export IDF_PATH="$HOME/Dropbox/esp32/esp-idf"
 export PATH="$IDF_PATH/tools:$PATH"
+if [ -d $HOME/.cargo ]; then
 . "$HOME/.cargo/env"
-
+fi
 export PATH=$HOME/.nimble/bin:$PATH
 export PATH="$HOME/usr/bin:$PATH"
 
@@ -55,7 +56,9 @@ if [ "$(uname)" = "Darwin" ]; then
 	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv > /dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv init --path)"
+if [ -d $HOME/.pyenv ]; then
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"
+	eval "$(pyenv init --path)"
+fi
