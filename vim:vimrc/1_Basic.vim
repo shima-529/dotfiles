@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " === 基本設定 ===
 set number " 行数
 set nobackup " バックアップファイル生成なし
@@ -8,6 +9,7 @@ set cmdheight=1 " exコマンド入力の行数
 set laststatus=2 " ステータスラインを常に表示
 set cursorline " カーソル行位置ハイライト
 set list " 下記listcharsを表示
+"set listchars=tab:»_,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set listchars=tab:»_,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
 set scrolloff=5 " スクロール上下のマージン行数
 set clipboard=unnamedplus " Enable clipboard
