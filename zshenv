@@ -32,6 +32,7 @@ if [ -d $HOME/.cargo ]; then
 fi
 export PATH=$HOME/.nimble/bin:$PATH
 export PATH="$HOME/usr/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
 
 if [ "$(uname)" = "Darwin" ]; then
 	export PATH="/usr/local/bin:$PATH"
@@ -39,7 +40,6 @@ if [ "$(uname)" = "Darwin" ]; then
 	export PATH="$PATH:/usr/sbin"
 	export PATH="$PATH:/sbin"
 	export PATH="$PATH:/bin"
-	export PATH="$PATH:$HOME/.local/bin"
 	export PATH="$PATH:$HOME/usr/m-cli"
 	export PATH="$HOME/.nodebrew/current/bin/:$PATH"
 	export PATH="$HOME/zen/:$PATH"
