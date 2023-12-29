@@ -179,3 +179,5 @@ hook_add = '''
 	let g:rbpt_max = 15
 '''
 
+[[plugins]]
+repo = 'amal-khailtash/vim-xdc-syntax'

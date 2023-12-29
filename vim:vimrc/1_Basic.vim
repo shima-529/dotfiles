@@ -41,6 +41,8 @@ set completeopt=menuone,noinsert
 " === 折りたたみ ===
 set foldmethod=marker " マーカーで折りたたみを行う デフォルトで{{{,}}}
 
+set modeline
+
 " 前回保存時のカーソル位置を記憶
 augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
