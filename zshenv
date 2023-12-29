@@ -62,3 +62,6 @@ if [ -d $HOME/.pyenv ]; then
 	eval "$(pyenv init -)"
 	eval "$(pyenv init --path)"
 fi
+
+# TeX
+export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
