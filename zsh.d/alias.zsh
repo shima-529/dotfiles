@@ -22,12 +22,21 @@ alias :q='exit'
 alias :wq='exit'
 alias :make='make'
 alias cd..='\cd ..'
-# For GNU ls
-alias l='ls --color=auto -N'
-alias ls='ls --color=auto -FN'
-alias ll='ls --color=auto -lFN'
-alias la='ls --color=auto -AFN'
-alias a='ls --color=auto -AFN'
+if ls -N 1>/dev/null 2>&1 ; then
+	# For GNU ls
+	alias l='ls --color=auto -N'
+	alias ls='ls --color=auto -FN'
+	alias ll='ls --color=auto -lFN'
+	alias la='ls --color=auto -AFN'
+	alias a='ls --color=auto -AFN'
+else
+	# For BSD ls
+	alias l='ls -GF'
+	alias ls='ls -GF'
+	alias ll='ls -GF -l'
+	alias la='ls -GAF'
+	alias a='ls -GAF'
+fi
 alias grep='grep --color=auto'
 
 # その他
