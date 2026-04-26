@@ -1,0 +1,14 @@
+# vim: ft=gitconfig :
+[gui]
+	spellingdictionary = none
+[alias]
+	a = add
+	st = status
+	cm = commit -m
+	d = diff
+	br = branch
+	co = checkout
+	sw = switch
+[user]
+	email = simatyan@gmail.com
+	name = shima-529

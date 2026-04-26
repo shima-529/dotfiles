@@ -21,17 +21,6 @@ let &runtimepath = &runtimepath . ',' . s:dein_repo_dir
 let s:dein_toml_dir = s:vimdir . '/dein_toml'
 let s:dein_toml_file = s:dein_toml_dir . '/dein.toml'
 let s:dein_lazy_toml_file = s:dein_toml_dir . '/dein_lazy.toml'
-if has("vim_starting")
-	if ! isdirectory(s:dein_toml_dir)
-		call system("mkdir " . s:dein_toml_dir)
-	endif
-	if ! isdirectory(s:dein_toml_file)
-		call system("touch " . s:dein_toml_file)
-	endif
-	if ! isdirectory(s:dein_lazy_toml_file)
-		call system("touch " . s:dein_lazy_toml_file)
-	endif
-endif
 
 if dein#load_state(s:dein_dir)
 	call dein#begin(s:dein_dir)
@@ -46,9 +35,3 @@ if dein#check_install()
 	call dein#install()
 endif
 
-filetype plugin indent on
-syntax on
-" カラースキームの色設定
-" Solarized
-autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none

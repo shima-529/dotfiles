@@ -1,0 +1,57 @@
+[general]
+import = [
+  "/usr/lib/node_modules/alacritty-themes/themes/Solarized-Dark.toml"
+]
+
+# Modification for Solarized Dark
+[colors.bright]
+black = "#2AA198"
+
+
+[env]
+TERM = "xterm-256color"
+
+[terminal]
+shell = "tmux"
+
+[window]
+# opacity = 0.99
+opacity = 1.0
+
+[cursor]
+blink_interval = 750
+  [cursor.style]
+  blinking = "Always"
+  shape = "Block"
+
+[mouse]
+hide_when_typing = true
+  [[mouse.bindings]]
+  mouse = "Middle"
+  action = "Paste"
+
+[selection]
+save_to_clipboard = true
+
+[[keyboard.bindings]]
+key = "n"
+mods = "Control|Shift"
+action = "CreateNewWindow"
+
+[font]
+size = 11.8
+  [font.offset]
+  x = 0
+  y = 2
+  [font.bold]
+  family = "Ubuntu Mono"
+  style = "Bold"
+  [font.bold_italic]
+  family = "Ubuntu Mono"
+  style = "Bold Italic"
+  [font.italic]
+  family = "Ubuntu Mono"
+  style = "Italic"
+  [font.normal]
+  family = "Ubuntu Mono"
+  style = "Regular"

@@ -40,7 +40,7 @@ hook_add = '''
 				\ }
 	let g:quickrun_config.cpp = {
 				\ 'command' : 'g++',
-				\ 'cmdopt': '-std=c++20 -fconcepts',
+				\ 'cmdopt': '-std=c++23',
 				\ }
 	let g:quickrun_config['tex'] = {
 				\ 'command' : 'latexmk',
@@ -71,18 +71,18 @@ hook_add = '''
 				\}
 '''
 
-[[plugins]]
-repo = 'scrooloose/syntastic.git'
-hook_add = '''
-	let g:syntastic_enable_signs=1
-	let g:syntastic_auto_loc_list=2
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_check_on_open = 0
-	let g:syntastic_check_on_wq = 0
-	let g:syntastic_c_compiler_options = '-std=gnu17 -Wall '
-	let g:syntastic_cpp_compiler_options = '-std=c++2a -Wall -fconcepts '
-	let g:syntastic_python_checkers = ['python3']
-'''
+# [[plugins]]
+# repo = 'scrooloose/syntastic.git'
+# hook_add = '''
+# 	let g:syntastic_enable_signs=1
+# 	let g:syntastic_auto_loc_list=2
+# 	let g:syntastic_always_populate_loc_list = 1
+# 	let g:syntastic_check_on_open = 0
+# 	let g:syntastic_check_on_wq = 0
+# 	let g:syntastic_c_compiler_options = '-std=gnu23 -Wall '
+# 	let g:syntastic_cpp_compiler_options = '-std=c++23 -Wall -fconcepts '
+# 	let g:syntastic_python_checkers = ['python3']
+# '''
 
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
@@ -111,9 +111,6 @@ call smartinput#define_rule({
 			\   'char'  : '<BS>',
 			\   'input' : '<Del><BS>',
 			\   })
-call smartinput#map_to_trigger('i', '<Plug>(smartinput_CR)',
-			\                        '<Enter>',
-			\                        '<Enter>')
 '''
 
 [[plugins]]
@@ -143,8 +140,8 @@ hook_add = '''
 				\ 'component_type': {
 				\   'syntastic': 'error'
 				\ },
-				\ 'separator': {'left': '⮀', 'right': '⮂'},
-				\ 'subseparator': {'left': '⮁', 'right': '⮃'}
+				\ 'separator': {'left': '', 'right': ''},
+				\ 'subseparator': {'left': '', 'right': ''}
 				\ }
 '''
 
@@ -181,3 +178,53 @@ hook_add = '''
 
 [[plugins]]
 repo = 'amal-khailtash/vim-xdc-syntax'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+	let g:lsp_diagnostics_enabled = 1
+	let g:lsp_diagnostics_highlights_insert_mode_enabled = 0
+	let g:lsp_diagnostics_echo_cursor = 1 " カーソル行のエラーをstatuslineに表示する
+	let g:lsp_text_edit_enabled = 1 " textEditを有効化する (自動で必要ヘッダを追加するなど)
+	let g:lsp_document_code_action_signs_enabled = 0
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+hook_add = '''
+	let g:lsp_settings = {
+	\  'pylsp-all': {
+	\    'workspace_config': {
+	\      'pylsp': {
+	\        'plugins': {
+	\          'pyflakes': {'enabled': v:true},
+	\          'pycodestyle': {'enabled': v:false},
+	\          'mccabe': {'enabled': v:false},
+	\          'pylint': {'enabled': v:false},
+	\          'flake8': {'enabled': v:false},
+	\          'autopep8': {'enabled': v:false},
+	\          'yapf': {'enabled': v:false},
+	\          'pydocstyle': {'enabled': v:false},
+	\        }
+	\      }
+	\    }
+	\  },
+	\}
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+	let g:asyncomplete_auto_popup = 1
+	let g:asyncomplete_auto_completeopt = 0
+	let g:asyncomplete_popup_delay = 200
+	set completeopt=menuone,noinsert,preview
+	highlight! link LspErrorHighlight Normal
+	highlight! link LspWarningHighlight Normal
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'

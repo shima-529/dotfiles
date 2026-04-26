@@ -54,12 +54,12 @@ on_ft = ['arm']
 repo = 'kballard/vim-swift'
 on_ft = ['swift']
 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python']
-hook_add = '''
-	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
-'''
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# on_ft = ['python']
+# hook_add = '''
+# 	autocmd FileType python setlocal completeopt-=preview "ポップアップを表示しない
+# '''
 
 [[plugins]]
 repo = 'zenlang/zen.vim'
@@ -68,4 +68,3 @@ on_ft = ['zen']
 [[plugins]]
 repo = 'OmniSharp/omnisharp-vim'
 on_ft = ['cs']
-

@@ -1,60 +1,65 @@
-#! /bin/bash
+#!/usr/bin/env bash
 cmd_exist() {
-	if which "$1" >/dev/null 2>&1 ; then
-		return 0
-	else
-		return 1
-	fi
+	which "$1" >/dev/null 2>&1
 }
 
 
 # Command Existence Check
-cmds_required=()
-cmds_required+=("git")
+cmds_required=(which git)
 for key in "${cmds_required[@]}"; do
 	if ! cmd_exist "$key"; then
-		echo "command \"$key\" not found."
+		echo "Prerequisite command \"$key\" not found." >&2
 		exit 1
 	fi
 done
 
 # Title Screen & Prompt
-echo '     _       _    __ _ _                  _ _   '
-echo '  __| | ___ | |_ / _(_) | ___  ___   __ _(_) |_ '
-echo ' / _` |/ _ \| __| |_| | |/ _ \/ __| / _` | | __|'
-echo '| (_| | (_) | |_|  _| | |  __/\__ \| (_| | | |_ '
-echo ' \__,_|\___/ \__|_| |_|_|\___||___(_)__, |_|\__|'
-echo '                                    |___/       '
+echo ' ' '________________________________________________'
+echo '\' '                                                ' '\'
+echo '\' '     _       _    __ _ _                  _ _   ' '\'
+echo '\' '  __| | ___ | |_ / _(_) | ___  ___   __ _(_) |_ ' '\'
+echo '\' ' / _` |/ _ \| __| |_| | |/ _ \/ __| / _` | | __|' '\'
+echo '\' '| (_| | (_) | |_|  _| | |  __/\__ \| (_| | | |_ ' '\'
+echo '\' ' \__,_|\___/ \__|_| |_|_|\___||___(_)__, |_|\__|' '\'
+echo '\' '                                    |___/       ' '\'
+echo '\' '________________________________________________' '\'
 echo
-echo   " This script will make symlinks to $HOME"
-printf " Are you sure to continue? [Y/n] "
-read -r x
+echo -e  "\tThis script will make symlinks to $HOME"
+echo -e  "\t  (will not overwrite any existing files)"
+echo -ne "\tAre you sure to continue? [Y/n] "
+read -n1 x
 case "$x" in
-    "" | "Y" | "y" | "yes" | "Yes" | "YES" )
-        true
-        cd "$(dirname "$0")";;
-    * )
-        exit 1;;
+	"" | "Y" | "y" )
+		true
+		cd "$(dirname "$0")";;
+	* )
+		echo
+		echo -e "\tQuitted ..."
+		exit 1;;
 esac
 
 
 # Creating Symlinks to Setting Files
-srcs=();                 dsts=()
-srcs+=(vimrc);           dsts+=("$HOME/.vimrc")
-srcs+=(gvimrc);          dsts+=("$HOME/.gvimrc")
-srcs+=(nanorc);          dsts+=("$HOME/.nanorc")
-srcs+=(zshenv);          dsts+=("$HOME/.zshenv")
-srcs+=(zshrc);           dsts+=("$HOME/.zshrc")
-srcs+=(fbtermrc);        dsts+=("$HOME/.fbtermrc")
-srcs+=(latexmkrc);       dsts+=("$HOME/.latexmkrc")
-srcs+=(uim);             dsts+=("$HOME/.uim")
-srcs+=(tmux.conf);       dsts+=("$HOME/.tmux.conf")
-srcs+=(picom.conf);      dsts+=("$HOME/.config/picom.conf")
-srcs+=(vim:vimrc);       dsts+=("$HOME/.vim/vimrc")
-srcs+=(vim:dein_toml);   dsts+=("$HOME/.vim/dein_toml")
-srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets")
-srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets")
-srcs+=(fbterm.d);        dsts+=("$HOME/.fbterm.d")
+srcs=();                 dsts=();
+srcs+=(vimrc);           dsts+=("$HOME/.vimrc");
+srcs+=(gvimrc);          dsts+=("$HOME/.gvimrc");
+srcs+=(vim:vimrc);       dsts+=("$HOME/.vim/vimrc");
+srcs+=(vim:dein_toml);   dsts+=("$HOME/.vim/dein_toml");
+srcs+=(vim:mysnippets);  dsts+=("$HOME/.vim/mysnippets");
+srcs+=(inputrc);         dsts+=("$HOME/.inputrc");
+srcs+=(zshenv);          dsts+=("$HOME/.zshenv");
+srcs+=(zshrc);           dsts+=("$HOME/.zshrc");
+srcs+=(zsh:zshrc);       dsts+=("$HOME/.zsh.d/zshrc");
+srcs+=(latexmkrc);       dsts+=("$HOME/.latexmkrc");
+srcs+=(tmux.conf);       dsts+=("$HOME/.tmux.conf");
+srcs+=(picom.conf);      dsts+=("$HOME/.config/picom.conf");
+srcs+=(fbterm);          dsts+=("$HOME/.config/fbterm");
+srcs+=(uim);             dsts+=("$HOME/.uim");
+srcs+=(gitconfig);       dsts+=("$HOME/.gitconfig");
+srcs+=(alacritty.toml);  dsts+=("$HOME/.alacritty.toml");
+srcs+=(weston.ini);      dsts+=("$HOME/.config/weston.ini");
+srcs+=(rofi.rasi);       dsts+=("$HOME/.config/rofi/config.rasi");
+srcs+=(clangd);          dsts+=("$HOME/.config/clangd");
 
 list_num=${#srcs[@]}
 echo
@@ -64,39 +69,33 @@ for i in $( seq 0 $((list_num - 1)) ) ; do
 	src=${srcs[$i]}
 	dst=${dsts[$i]}
 
-	if [ ! -d "$(dirname "$dst")" ] ; then
-		mkdir -p "$(dirname $dst)"
-	fi
-
-	ln -sT "$PWD/$src" "$dst"
+	mkdir -p "$(dirname $dst)"
+	ln -s "$PWD/$src" "$dst"
 done
 
 
 # Cloning zsh plugins
-repo_list=('zsh-autosuggestions' 'zsh-syntax-highlighting' 'zsh-history-substring-search')
-user_list=('zsh-users'           'zsh-users'               'zsh-users')
-repo_num=${#repo_list[@]}
-dest_base=$HOME/.zshplugin
+gh_users=();            gh_repos=();
+gh_users=('zsh-users'); gh_repos=('zsh-autosuggestions');
+gh_users=('zsh-users'); gh_repos=('zsh-syntax-highlighting');
+gh_users=('zsh-users'); gh_repos=('zsh-history-substring-search');
+
+repo_num=${#gh_repos[@]}
+dest_base=$HOME/.zsh/plugins
 echo
 
 echo "- Cloning Zsh Plugins"
-if [ ! -d "$dest_base" ] ; then
-	mkdir "$dest_base"
-fi
+mkdir "$dest_base"
 for i in $( seq 0 $((repo_num - 1)) ) ; do
-	repo=${repo_list[$i]}
-	user=${user_list[$i]}
-	if [ ! -d "$dest_base/$user" ] ; then
-		mkdir "$dest_base/$user"
-	fi
+	user=${gh_usrs[$i]}
+	repo=${gh_repos[$i]}
 
+	mkdir "$dest_base/$user"
 	git clone "https://github.com/$user/$repo" "$dest_base/$user/$repo" 2>/dev/null
-	if [ "$?" = "0" ]; then
-		echo " $user/$repo cloned."
-	fi
+	[ "$?" = "0" ] && echo " $user/$repo cloned."
 done
 
 
 # Done!
 echo ""
-echo "Operation Finished."
+echo "doftiles installation Finished."

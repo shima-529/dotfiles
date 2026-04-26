@@ -1,0 +1,9 @@
+If:
+  PathMatch: .*\.c
+CompileFlags:
+  Add: [-std=gnu23]
+---
+If:
+  PathMatch: .*\.(cpp|cxx|cc)
+CompileFlags:
+  Add: [-std=c++23]

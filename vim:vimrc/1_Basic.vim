@@ -1,70 +1,48 @@
-scriptencoding utf-8
-" === 基本設定 ===
-set number " 行数
-set nobackup " バックアップファイル生成なし
-set title " ターミナルタイトルを表示(ファイル情報等)
-set noshowmode " モード表示なし
-set showcmd " キーバインド入力(画面下部)
-set cmdheight=1 " exコマンド入力の行数
-set laststatus=2 " ステータスラインを常に表示
-set cursorline " カーソル行位置ハイライト
-set list " 下記listcharsを表示
-"set listchars=tab:»_,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
-set listchars=tab:»_,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
-set scrolloff=5 " スクロール上下のマージン行数
+" === Basics ===
+set number " show line number
+set nobackup " do not generate backup files (e.g.: file.txt~)
 set clipboard=unnamedplus " Enable clipboard
-set display=lastline " 長〜い行を最後まで省略せず表示
-set encoding=utf-8 " Vim内部でのファイルエンコードを指定
-set fileencodings=utf-8,iso-2022-jp,euc-jp,ucs-2,cp932,sjis " ファイル読み込み時のエンコード判定試行優先順位
-set showmatch " カッコを入力時にマッチする部分にカーソルを一瞬移動
-set matchtime=1 " x 0.1 sec だけ移動時間を持つ
-set backspace=indent,eol,start " BackSpaceで削除可能な文字列
+set display=lastline " do not omit LONG lines
+set backspace=indent,eol,start " deletable chars by BackSpace key
+set noshowmode " do not show mode in the last line (LightLine replaces this)
+set laststatus=2 " always shows status line
+set cursorline " highlights cursor line position
+set scrolloff=5 " margin of vertical scrolling
+set modeline " enables modeline, such as: "// vim: filetype=tex :"
 
-" === インデント ===
-set autoindent " 前行からインデントを引き継ぐ。改行後何もしないでinsert modeを抜けると削除される
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
-set softtabstop=4
+" === Encoding ===
+set encoding=utf-8 " Vim internal encoding
+set fileencodings=utf-8,iso-2022-jp,euc-jp,ucs-2,cp932,sjis " priorities of file read encoding
 
-" === 検索 ===
-set incsearch " インクリメンタルサーチ(文字入力によって随時検索)
+" === Brace Pair Match ===
+set showmatch
+set matchtime=1
+
+" === Special Chars ===
+set list " shows listchars
+set listchars=tab:»_,trail:_,extends:»,precedes:«,nbsp:%
+highlight SpecialKey guibg=Gray15 " color of listchars
+
+" === Indent ===
+set autoindent " inherits indentation; exiting insert mode just after line break hides indents.
+set tabstop=4 " display witdh of '\t'
+set shiftwidth=0 " shift width of indentation on << or >> cmds; if 0, shiftwidth == tabstop
+
+" === Search ===
+set incsearch " enables incremental search
 set ignorecase
-set hlsearch
+set hlsearch " highlights all matched patterns
 
-" === 補完 ===
-set wildmenu " exモードでの補完
-set wildmode=list:longest " 候補が複数の場合はリスト表示、最長一致文字列まで補完
-set pumheight=10 " 補完リストの最大表示行数。0とおくと一杯に表示
+" === Completion ===
+set wildmenu " completion on ex mode
+set wildmode=list:longest " for multiple candidates, show list and completes to the longest
+set pumheight=10 " maximum lines of overlay completion list
 set completeopt=menuone,noinsert
 
-" === 折りたたみ ===
-set foldmethod=marker " マーカーで折りたたみを行う デフォルトで{{{,}}}
+" === Folding ===
+set foldmethod=marker " enables folding; markers are {{{,}}} on default
 
-set modeline
-
-" 前回保存時のカーソル位置を記憶
-augroup vimrcEx
-  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
-  \ exe "normal g`\"" | endif
-augroup END
-
-" 改行時のコメントアウトを無効化する
-augroup auto_comment_off
-    autocmd!
-    autocmd BufEnter * setlocal formatoptions-=r
-    autocmd BufEnter * setlocal formatoptions-=o
-augroup END
-
-" プロジェクト毎にvimrcを読ませる
-augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
-function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction
+" === Mouse ===
+if $TERM == 'tmux-256color'
+	set mouse=a " enables mouse scrolling
+endif

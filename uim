@@ -1,3 +1,5 @@
+; vim: ft=lisp :
+
 ;; デフォルトの IME を Anthy に
 (define default-im-name 'anthy)
 (require-module "anthy")
